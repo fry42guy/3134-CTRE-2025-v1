@@ -33,12 +33,14 @@ public static final double PeakReverseVoltage = -1 ; // Peak output of -1 V ****
     public class IntakeConstants {
         public static final int kIntakeMotorPort1 = 11;
         public static final int kIntakeMotorPort2 = 12;
-        public static final int kIntakeMinEncoderCount = 0;
-        public static final int kIntakeMaxEncoderCount = 1000;
-        public static final double kIntakeIdealSpeed = 0.5;
-        public static final double kIntakeDefaultP = 0.1;
-        public static final double kIntakeDefaultI = 0.0;
-        public static final double kIntakeDefaultD = 0.0;
+        public static final double REVspeed = -0.25; // Example value, set to your desired reverse speed
+        public static final double FWDspeed = 0.25;  // Example value, set to your desired forward speed
+        // public static final int kIntakeMinEncoderCount = 0;
+        // public static final int kIntakeMaxEncoderCount = 1000;
+        // public static final double kIntakeIdealSpeed = 0.5;
+        // public static final double kIntakeDefaultP = 0.1;
+        // public static final double kIntakeDefaultI = 0.0;
+        // public static final double kIntakeDefaultD = 0.0;
         public static final InvertedValue kIntakeMotor1Inverted = InvertedValue.Clockwise_Positive;
         public static final InvertedValue kIntakeMotor2Inverted = InvertedValue.Clockwise_Positive;
     }
