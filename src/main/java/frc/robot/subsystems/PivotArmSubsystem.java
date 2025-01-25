@@ -6,9 +6,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Intake extends SubsystemBase {
-  /** Creates a new Intake. */
-  public Intake() {}
+public class PivotArmSubsystem extends SubsystemBase {
+  /** Creates a new Pivot_Arm. */
+  public PivotArmSubsystem() {}
 
   @Override
   public void periodic() {

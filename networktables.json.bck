@@ -1,0 +1,18 @@
+[
+  {
+    "name": "/Shuffleboard/Elevator/Test Setpoin (Y button)",
+    "type": "double",
+    "value": 0.0,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/SmartDashboard/Test Setpoin (Y button)",
+    "type": "double",
+    "value": 0.0,
+    "properties": {
+      "persistent": true
+    }
+  }
+]

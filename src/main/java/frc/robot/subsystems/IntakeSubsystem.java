@@ -6,21 +6,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Elevator extends SubsystemBase {
-
-  
-  /** Creates a new Elevator. 
-   * 
-   * Discription: This class is used to control the elevator of the robot. It will have 2 motors, one on each side of the elevator. These motors will be Falcon 500s.
-  */
-  public Elevator() {
-
-
-
-
-
-    
-  }
+public class IntakeSubsystem extends SubsystemBase {
+  /** Creates a new Intake. */
+  public IntakeSubsystem() {}
 
   @Override
   public void periodic() {
