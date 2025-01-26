@@ -13,6 +13,7 @@ public class Constants {
         public static final InvertedValue kElevatorMotorInverted = InvertedValue.Clockwise_Positive;
         public static final InvertedValue kElevatorMotor2Inverted = InvertedValue.Clockwise_Positive;
         public static final double homespeed = -.05;
+        public static final double testspeed = .15;
 
 public static final double Setpoint1 = 5; // Setpoint 1 for the elevator
 public static final double Setpoint2 = 10; // Setpoint 2 for the elevator
@@ -47,6 +48,10 @@ public static final double PeakReverseVoltage = -1 ; // Peak output of -1 V ****
 
     public class PivotArmConstants {
         public static final int kPivotArmMotorPort = 13;
+        public static final double PivotArmMotorMaxSoftLimit = 50; // Define the max soft limit
+        public static final double PivotArmMotorMinSoftLimit = 0; // Define the min soft limit
+        public static final double homespeed = -.05;
+        public static final double testspeed = .15;
         public static final InvertedValue kPivotArmMotorInverted = InvertedValue.Clockwise_Positive;
         public static final int kPivotArmMinEncoderCount = 0;
         public static final int kPivotArmMaxEncoderCount = 1000;

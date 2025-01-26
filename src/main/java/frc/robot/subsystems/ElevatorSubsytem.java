@@ -165,7 +165,7 @@ if (on){
   elevatorMotor2.setNeutralMode(NeutralModeValue.Brake);
 }
 else{
-  elevatorMotor2.setNeutralMode(NeutralModeValue.Coast);
+  elevatorMotor1.setNeutralMode(NeutralModeValue.Coast);
   elevatorMotor2.setNeutralMode(NeutralModeValue.Coast);
 }}
 
@@ -209,8 +209,8 @@ else{
   public void periodic() {
 
 
-    //SmartDashboard.putNumber("Current Setpoint", lastsetpoint);
-    //SmartDashboard.putNumber("Current Motor Position", getposition());
+    SmartDashboard.putNumber("Elevator Setpoint", lastsetpoint);
+    SmartDashboard.putNumber("Elevator Motor Position", getposition());
 
     // This method will be called once per scheduler run
   }

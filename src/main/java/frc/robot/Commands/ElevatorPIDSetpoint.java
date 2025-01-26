@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubsytem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class PIDSetpoint extends Command {
+public class ElevatorPIDSetpoint extends Command {
 
   private double Setpoint;
 
 
   private final ElevatorSubsytem m_elevator;
   /** Creates a new PIDSetpoint. */
-  public PIDSetpoint(ElevatorSubsytem m_elevator , double Setpoint ) {
+  public ElevatorPIDSetpoint(ElevatorSubsytem m_elevator , double Setpoint ) {
 
     this.Setpoint = Setpoint;
     this.m_elevator = m_elevator;

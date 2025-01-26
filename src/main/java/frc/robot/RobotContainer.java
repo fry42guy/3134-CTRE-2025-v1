@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
-import frc.robot.Commands.PIDSetpoint;
+import frc.robot.Commands.ElevatorPIDSetpoint;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
@@ -57,6 +57,7 @@ private final PivotArmSubsystem m_pivotArm = new PivotArmSubsystem();
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
     private final CommandXboxController joystick = new CommandXboxController(0);
+    private final CommandXboxController joystick2 = new CommandXboxController(1);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
@@ -68,6 +69,8 @@ private final PivotArmSubsystem m_pivotArm = new PivotArmSubsystem();
         SmartDashboard.putData("Auto Mode", autoChooser);
         
 m_intake.setDefaultCommand(new RunCommand(() -> m_intake.Setspeed(0.0), m_intake));
+m_pivotArm.setDefaultCommand(new RunCommand(() -> m_pivotArm.Setspeed(0.0), m_pivotArm));
+m_elevator.setDefaultCommand(new RunCommand(() -> m_elevator.Setspeed(0.0), m_elevator));
 
       
 
@@ -110,15 +113,29 @@ m_intake.setDefaultCommand(new RunCommand(() -> m_intake.Setspeed(0.0), m_intake
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        joystick.a().onTrue(new PIDSetpoint(m_elevator , Constants.ElevatorConstants.Setpoint1));
-        joystick.b().onTrue(new PIDSetpoint(m_elevator , Constants.ElevatorConstants.Setpoint2));
-        joystick.x().onTrue(new PIDSetpoint(m_elevator , Constants.ElevatorConstants.Setpoint3));
+        joystick.a().onTrue(new ElevatorPIDSetpoint(m_elevator , Constants.ElevatorConstants.Setpoint1));
+        joystick.b().onTrue(new ElevatorPIDSetpoint(m_elevator , Constants.ElevatorConstants.Setpoint2));
+        joystick.x().onTrue(new ElevatorPIDSetpoint(m_elevator , Constants.ElevatorConstants.Setpoint3));
         //joystick.y().onTrue(new PIDSetpoint(m_elevator , SmartDashboard.getNumber("TestSetpoint", 100)));
         joystick.rightBumper().onTrue(m_elevator.runOnce(() -> m_elevator.BreakModeOn(true)));
         joystick.leftBumper().onTrue(m_elevator.runOnce(() -> m_elevator.BreakModeOn(false)));
         joystick.rightTrigger().whileTrue(new RunCommand(() -> m_intake.Setspeed(Constants.IntakeConstants.REVspeed), m_intake));
         joystick.leftTrigger().whileTrue(new RunCommand(() -> m_intake.Setspeed(Constants.IntakeConstants.FWDspeed), m_intake));
 
+
+
+        joystick2.leftBumper().onTrue(m_elevator.runOnce(() -> m_elevator.softlimitsOFF()));
+        joystick2.rightBumper().onTrue(m_elevator.runOnce(() -> m_elevator.softlimitsOn()));
+        joystick2.leftTrigger().whileTrue(new RunCommand(() -> m_elevator.Setspeed(Constants.ElevatorConstants.testspeed), m_elevator));
+        joystick2.rightTrigger().whileTrue(new RunCommand(() -> m_elevator.Setspeed(-Constants.ElevatorConstants.testspeed), m_elevator));
+        
+        joystick2.a().onTrue(m_pivotArm.runOnce(()-> m_pivotArm.softlimitsOFF()));
+        joystick2.b().onTrue(m_pivotArm.runOnce(()-> m_pivotArm.softlimitsOn()));
+        joystick2.x().onTrue(new RunCommand(() -> m_pivotArm.Setspeed(Constants.PivotArmConstants.testspeed), m_pivotArm));
+        joystick2.y().onTrue(new RunCommand(() -> m_pivotArm.Setspeed(-Constants.PivotArmConstants.testspeed), m_pivotArm));
+
+
+        
 
     }
 
