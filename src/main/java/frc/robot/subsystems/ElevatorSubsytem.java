@@ -69,7 +69,7 @@ public class ElevatorSubsytem extends SubsystemBase {
     SetElevatorConfig2();
     BreakModeOn(true);
     softlimitsOn();
-    
+
   }
 
   public void SetElevatorConfig1(){
@@ -77,6 +77,7 @@ public class ElevatorSubsytem extends SubsystemBase {
     configs.Slot0.kP = 2.4; // An error of 1 rotation results in 2.4 V output
     configs.Slot0.kI = 0; // No output for integrated error
     configs.Slot0.kD = 0.1; // A velocity of 1 rps results in 0.1 V output
+    
     // Peak output of 8 V
     configs.Voltage.withPeakForwardVoltage(Volts.of(8))
       .withPeakReverseVoltage(Volts.of(-8));
