@@ -48,11 +48,11 @@ public static final double PeakReverseVoltage = -1 ; // Peak output of -1 V ****
 
     public class PivotArmConstants {
         public static final int kPivotArmMotorPort = 13;
-        public static final double PivotArmMotorMaxSoftLimit = 50; // Define the max soft limit
+        public static final double PivotArmMotorMaxSoftLimit = 15; // Define the max soft limit
         public static final double PivotArmMotorMinSoftLimit = 0; // Define the min soft limit
         public static final double homespeed = -.05;
         public static final double testspeed = .15;
-        public static final InvertedValue kPivotArmMotorInverted = InvertedValue.Clockwise_Positive;
+        public static final InvertedValue kPivotArmMotorInverted = InvertedValue.CounterClockwise_Positive;
         public static final int kPivotArmMinEncoderCount = 0;
         public static final int kPivotArmMaxEncoderCount = 1000;
         public static final double kPivotArmIdealSpeed = 0.5;

@@ -38,6 +38,8 @@ private final PositionVoltage m_positionVoltage = new PositionVoltage(0).withSlo
     PivotArmMotor1.getConfigurator().apply(PivotArmConfig1);
 
 
+    softlimitsOn();
+
 BreakModeOn(true);
 
 
