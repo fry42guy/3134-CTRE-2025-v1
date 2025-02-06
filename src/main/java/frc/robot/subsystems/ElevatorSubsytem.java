@@ -67,6 +67,7 @@ public class ElevatorSubsytem extends SubsystemBase {
 
     SetElevatorConfig1();
     SetElevatorConfig2();
+    BreakModeOn(true);
   }
 
   public void SetElevatorConfig1(){
