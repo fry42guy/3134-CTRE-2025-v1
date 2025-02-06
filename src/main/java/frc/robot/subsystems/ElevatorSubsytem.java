@@ -115,7 +115,7 @@ public class ElevatorSubsytem extends SubsystemBase {
     // // Peak output of 120 A
     // configs.TorqueCurrent.withPeakForwardTorqueCurrent(Amps.of(120))
     //   .withPeakReverseTorqueCurrent(Amps.of(-120));
-      configs.MotorOutput.Inverted  = Constants.ElevatorConstants.kElevatorMotorInverted;
+      configs.MotorOutput.Inverted  = Constants.ElevatorConstants.kElevatorMotor2Inverted;
 
       elevatorMotor2.setNeutralMode(NeutralModeValue.Brake);
 
