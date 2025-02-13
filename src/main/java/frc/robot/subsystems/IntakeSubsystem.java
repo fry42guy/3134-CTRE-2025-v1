@@ -13,7 +13,7 @@ import frc.robot.Constants;
 public class IntakeSubsystem extends SubsystemBase {
 
   public final TalonFX IntakeMotor1 = new TalonFX(Constants.IntakeConstants.kIntakeMotorPort1);
-  public final TalonFX IntakeMotor2 = new TalonFX(Constants.IntakeConstants.kIntakeMotorPort2);
+ // public final TalonFX IntakeMotor2 = new TalonFX(Constants.IntakeConstants.kIntakeMotorPort2);
   /** Creates a new Intake. */
   public IntakeSubsystem() {
 
@@ -22,13 +22,13 @@ public class IntakeSubsystem extends SubsystemBase {
     IntakeMotor1.getConfigurator().apply(IntakeConfig1);
     TalonFXConfiguration IntakeConfig2 = new TalonFXConfiguration();
     IntakeConfig2.MotorOutput.Inverted  = Constants.IntakeConstants.kIntakeMotor2Inverted;
-    IntakeMotor2.getConfigurator().apply(IntakeConfig2);
+   // IntakeMotor2.getConfigurator().apply(IntakeConfig2);
   }
 
 
 public void Setspeed(double speed) {
   IntakeMotor1.set(speed);
-  IntakeMotor2.set(speed);
+  //IntakeMotor2.set(speed);
 }
 
 

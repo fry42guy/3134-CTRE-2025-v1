@@ -30,10 +30,13 @@ public class ElevatorSubsytem extends SubsystemBase {
 
   public final TalonFX elevatorMotor1 = new TalonFX(Constants.ElevatorConstants.kElevatorMotorPort);
   public final TalonFX elevatorMotor2 = new TalonFX(Constants.ElevatorConstants.kElevatorMotorPort2);
+
+  private TalonFXConfiguration elevatorConfig1 = new TalonFXConfiguration();
+  private TalonFXConfiguration elevatorConfig2 = new TalonFXConfiguration();
  
   private final PositionVoltage m_positionVoltage = new PositionVoltage(0).withSlot(0);
   /* Start at position 0, use slot 1 */
-  private final PositionTorqueCurrentFOC m_positionTorque = new PositionTorqueCurrentFOC(0).withSlot(1);
+  //private final PositionTorqueCurrentFOC m_positionTorque = new PositionTorqueCurrentFOC(0).withSlot(1);
   /* Keep a brake request so we can disable the motor */
   private final NeutralOut m_brake = new NeutralOut();
 
@@ -55,11 +58,11 @@ public class ElevatorSubsytem extends SubsystemBase {
     
   
 
-        TalonFXConfiguration elevatorConfig1 = new TalonFXConfiguration();
-    elevatorConfig1.MotorOutput.Inverted  = Constants.ElevatorConstants.kElevatorMotorInverted;
+
+    elevatorConfig1.MotorOutput.Inverted  = Constants.ElevatorConstants.kElevatorMotor1Inverted;
     elevatorMotor1.getConfigurator().apply(elevatorConfig1);
 
-    TalonFXConfiguration elevatorConfig2 = new TalonFXConfiguration();
+    
     elevatorConfig2.MotorOutput.Inverted = Constants.ElevatorConstants.kElevatorMotor2Inverted;
     elevatorMotor2.getConfigurator().apply(elevatorConfig2);
 
@@ -73,13 +76,13 @@ public class ElevatorSubsytem extends SubsystemBase {
   }
 
   public void SetElevatorConfig1(){
-    TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 2.4; // An error of 1 rotation results in 2.4 V output
-    configs.Slot0.kI = 0; // No output for integrated error
-    configs.Slot0.kD = 0.1; // A velocity of 1 rps results in 0.1 V output
-    
+    //TalonFXConfiguration configs = new TalonFXConfiguration();
+    elevatorConfig1.Slot0.kP = 2.4; // An error of 1 rotation results in 2.4 V output
+    elevatorConfig1.Slot0.kI = 0; // No output for integrated error
+    elevatorConfig1.Slot0.kD = 0.1; // A velocity of 1 rps results in 0.1 V output
+    //configs.MotorOutput.Inverted  = Constants.ElevatorConstants.kElevatorMotorInverted;
     // Peak output of 8 V
-    configs.Voltage.withPeakForwardVoltage(Volts.of(8))
+    elevatorConfig1.Voltage.withPeakForwardVoltage(Volts.of(8))
       .withPeakReverseVoltage(Volts.of(-8));
 
     // configs.Slot1.kP = 60; // An error of 1 rotation results in 60 A output
@@ -88,14 +91,14 @@ public class ElevatorSubsytem extends SubsystemBase {
     // // Peak output of 120 A
     // configs.TorqueCurrent.withPeakForwardTorqueCurrent(Amps.of(120))
     //   .withPeakReverseTorqueCurrent(Amps.of(-120));
-      configs.MotorOutput.Inverted  = Constants.ElevatorConstants.kElevatorMotorInverted;
+    elevatorConfig1.MotorOutput.Inverted  = Constants.ElevatorConstants.kElevatorMotor1Inverted;
       elevatorMotor1.setNeutralMode(NeutralModeValue.Brake);
 
     /* Retry config apply up to 5 times, report if failure */
     StatusCode status = StatusCode.StatusCodeNotInitialized;
    
     for (int i = 0; i < 5; ++i) {
-      status = elevatorMotor1.getConfigurator().apply(configs);
+      status = elevatorMotor1.getConfigurator().apply(elevatorConfig1);
      
       if (status.isOK()) break;
     }
@@ -105,12 +108,12 @@ public class ElevatorSubsytem extends SubsystemBase {
   }
 
   public void SetElevatorConfig2(){
-    TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = Constants.ElevatorConstants.Elevatorkp; // An error of 1 rotation results in 2.4 V output
-    configs.Slot0.kI = Constants.ElevatorConstants.Elevatorki; // No output for integrated error
-    configs.Slot0.kD = Constants.ElevatorConstants.Elevatorkd; // A velocity of 1 rps results in 0.1 V output
+   // TalonFXConfiguration configs = new TalonFXConfiguration();
+   elevatorConfig2.Slot0.kP = Constants.ElevatorConstants.Elevatorkp; // An error of 1 rotation results in 2.4 V output
+   elevatorConfig2.Slot0.kI = Constants.ElevatorConstants.Elevatorki; // No output for integrated error
+   elevatorConfig2.Slot0.kD = Constants.ElevatorConstants.Elevatorkd; // A velocity of 1 rps results in 0.1 V output
     // Peak output of 8 V
-    configs.Voltage.withPeakForwardVoltage(Volts.of(Constants.ElevatorConstants.PeakForwardVoltage))
+    elevatorConfig2.Voltage.withPeakForwardVoltage(Volts.of(Constants.ElevatorConstants.PeakForwardVoltage))
       .withPeakReverseVoltage(Volts.of(Constants.ElevatorConstants.PeakReverseVoltage));
 
     // configs.Slot1.kP = 60; // An error of 1 rotation results in 60 A output
@@ -119,7 +122,7 @@ public class ElevatorSubsytem extends SubsystemBase {
     // // Peak output of 120 A
     // configs.TorqueCurrent.withPeakForwardTorqueCurrent(Amps.of(120))
     //   .withPeakReverseTorqueCurrent(Amps.of(-120));
-      configs.MotorOutput.Inverted  = Constants.ElevatorConstants.kElevatorMotor2Inverted;
+    elevatorConfig2.MotorOutput.Inverted  = Constants.ElevatorConstants.kElevatorMotor2Inverted;
 
       elevatorMotor2.setNeutralMode(NeutralModeValue.Brake);
 
@@ -127,7 +130,7 @@ public class ElevatorSubsytem extends SubsystemBase {
     StatusCode status = StatusCode.StatusCodeNotInitialized;
    
     for (int i = 0; i < 5; ++i) {
-      status = elevatorMotor2.getConfigurator().apply(configs);
+      status = elevatorMotor2.getConfigurator().apply( elevatorConfig2);
      
       if (status.isOK()) break;
     }
@@ -143,23 +146,38 @@ return Math.abs(elevatorMotor1.getVelocity().getValueAsDouble());
   }
 
   public void softlimitsOn(){
-    TalonFXConfiguration toConfigure = new TalonFXConfiguration();
-    toConfigure.SoftwareLimitSwitch.withForwardSoftLimitThreshold(Constants.ElevatorConstants.ElevatorMotorMaxSoftLimit);
-    toConfigure.SoftwareLimitSwitch.withReverseSoftLimitThreshold(Constants.ElevatorConstants.ElevatorMotorMinSoftLimit);
-    toConfigure.SoftwareLimitSwitch.withForwardSoftLimitEnable(true);
-    toConfigure.SoftwareLimitSwitch.withReverseSoftLimitEnable(true);
-    elevatorMotor1.getConfigurator().apply(toConfigure);
-    elevatorMotor2.getConfigurator().apply(toConfigure);
+   // TalonFXConfiguration toConfigure = new TalonFXConfiguration();
+   elevatorConfig1.SoftwareLimitSwitch.withForwardSoftLimitThreshold(Constants.ElevatorConstants.ElevatorMotorMaxSoftLimit);
+   elevatorConfig1.SoftwareLimitSwitch.withReverseSoftLimitThreshold(Constants.ElevatorConstants.ElevatorMotorMinSoftLimit);
+   elevatorConfig1.SoftwareLimitSwitch.withForwardSoftLimitEnable(true);
+   elevatorConfig1.SoftwareLimitSwitch.withReverseSoftLimitEnable(true);
+   elevatorMotor1.getConfigurator().apply(elevatorConfig1);
+
+
+   elevatorConfig2.SoftwareLimitSwitch.withForwardSoftLimitThreshold(Constants.ElevatorConstants.ElevatorMotorMaxSoftLimit);
+   elevatorConfig2.SoftwareLimitSwitch.withReverseSoftLimitThreshold(Constants.ElevatorConstants.ElevatorMotorMinSoftLimit);
+   elevatorConfig2.SoftwareLimitSwitch.withForwardSoftLimitEnable(true);
+   elevatorConfig2.SoftwareLimitSwitch.withReverseSoftLimitEnable(true);
+   
+    elevatorMotor2.getConfigurator().apply( elevatorConfig2);
   }
 
   public void softlimitsOFF(){
-    TalonFXConfiguration toConfigure = new TalonFXConfiguration();
-    toConfigure.SoftwareLimitSwitch.withForwardSoftLimitThreshold(Constants.ElevatorConstants.ElevatorMotorMaxSoftLimit);
-    toConfigure.SoftwareLimitSwitch.withReverseSoftLimitThreshold(Constants.ElevatorConstants.ElevatorMotorMinSoftLimit);
-    toConfigure.SoftwareLimitSwitch.withForwardSoftLimitEnable(false);
-    toConfigure.SoftwareLimitSwitch.withReverseSoftLimitEnable(false);
-    elevatorMotor1.getConfigurator().apply(toConfigure);
-    elevatorMotor2.getConfigurator().apply(toConfigure);
+    //TalonFXConfiguration toConfigure = new TalonFXConfiguration();
+
+    elevatorConfig1.SoftwareLimitSwitch.withForwardSoftLimitThreshold(Constants.ElevatorConstants.ElevatorMotorMaxSoftLimit);
+    elevatorConfig1.SoftwareLimitSwitch.withReverseSoftLimitThreshold(Constants.ElevatorConstants.ElevatorMotorMinSoftLimit);
+    elevatorConfig1.SoftwareLimitSwitch.withForwardSoftLimitEnable(false);
+    elevatorConfig1.SoftwareLimitSwitch.withReverseSoftLimitEnable(false);
+    elevatorMotor1.getConfigurator().apply(elevatorConfig1);
+
+
+    elevatorConfig2.SoftwareLimitSwitch.withForwardSoftLimitThreshold(Constants.ElevatorConstants.ElevatorMotorMaxSoftLimit);
+    elevatorConfig2.SoftwareLimitSwitch.withReverseSoftLimitThreshold(Constants.ElevatorConstants.ElevatorMotorMinSoftLimit);
+    elevatorConfig2.SoftwareLimitSwitch.withForwardSoftLimitEnable(false);
+    elevatorConfig2.SoftwareLimitSwitch.withReverseSoftLimitEnable(false);
+    
+    elevatorMotor2.getConfigurator().apply(elevatorConfig2);
   }
 
 public void BreakModeOn(boolean on){

@@ -8,9 +8,9 @@ public class Constants {
         public static final int kElevatorMotorPort = 9;
         public static final int kElevatorMotorPort2 = 10;
         public static final double ElevatorMotorMinSoftLimit = 0;
-        public static final double ElevatorMotorMaxSoftLimit = 100;
+        public static final double ElevatorMotorMaxSoftLimit = 57; //comfimed 56 is max
  
-        public static final InvertedValue kElevatorMotorInverted = InvertedValue.CounterClockwise_Positive;
+        public static final InvertedValue kElevatorMotor1Inverted = InvertedValue.CounterClockwise_Positive;
         public static final InvertedValue kElevatorMotor2Inverted = InvertedValue.Clockwise_Positive;
         public static final double homespeed = -.05;
         public static final double testspeed = .15;
