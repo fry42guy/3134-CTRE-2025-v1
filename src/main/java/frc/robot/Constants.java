@@ -65,8 +65,8 @@ public static final double PeakReverseVoltage = -1 ; // Peak output of -1 V ****
         public static final double Setpoint3 = 15; // Setpoint 3 for the elevator
 
 
-        public static final double PeakForwardVoltage = 2; // Peak output of 4 V   ***********************************Default was 8...4?
-public static final double PeakReverseVoltage = -1 ; // Peak output of -1 V ***********************************Default was -8
+        public static final double PeakForwardVoltage = 8; // Peak output of 4 V   ***********************************Default was 8...4?
+public static final double PeakReverseVoltage = -8 ; // Peak output of -1 V ***********************************Default was -8
 
 
 
