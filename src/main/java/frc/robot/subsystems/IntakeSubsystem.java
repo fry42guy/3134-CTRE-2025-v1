@@ -20,8 +20,8 @@ public class IntakeSubsystem extends SubsystemBase {
     TalonFXConfiguration IntakeConfig1 = new TalonFXConfiguration();
     IntakeConfig1.MotorOutput.Inverted  = Constants.IntakeConstants.kIntakeMotor1Inverted;
     IntakeMotor1.getConfigurator().apply(IntakeConfig1);
-    TalonFXConfiguration IntakeConfig2 = new TalonFXConfiguration();
-    IntakeConfig2.MotorOutput.Inverted  = Constants.IntakeConstants.kIntakeMotor2Inverted;
+   // TalonFXConfiguration IntakeConfig2 = new TalonFXConfiguration();
+   // IntakeConfig2.MotorOutput.Inverted  = Constants.IntakeConstants.kIntakeMotor2Inverted;
    // IntakeMotor2.getConfigurator().apply(IntakeConfig2);
   }
 

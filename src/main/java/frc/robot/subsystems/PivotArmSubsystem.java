@@ -19,6 +19,8 @@ import frc.robot.Constants;
 
 public class PivotArmSubsystem extends SubsystemBase {
 
+  public TalonFXConfiguration PivotArmConfig1 = new TalonFXConfiguration();
+
   public final TalonFX PivotArmMotor1 = new TalonFX(Constants.PivotArmConstants.kPivotArmMotorPort);
 
 private final PositionVoltage m_positionVoltage = new PositionVoltage(0).withSlot(0);
@@ -33,7 +35,7 @@ private final PositionVoltage m_positionVoltage = new PositionVoltage(0).withSlo
   /** Creates a new Pivot_Arm. */
   public PivotArmSubsystem() {
 
-    TalonFXConfiguration PivotArmConfig1 = new TalonFXConfiguration();
+    
     PivotArmConfig1.MotorOutput.Inverted  = Constants.PivotArmConstants.kPivotArmMotorInverted;
     PivotArmMotor1.getConfigurator().apply(PivotArmConfig1);
 
@@ -56,13 +58,13 @@ BreakModeOn(true);
   }
 
   public void SetPivotArmConfig1(){
-    TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 2.4; // An error of 1 rotation results in 2.4 V output
-    configs.Slot0.kI = 0; // No output for integrated error
-    configs.Slot0.kD = 0.1; // A velocity of 1 rps results in 0.1 V output
+
+    PivotArmConfig1.Slot0.kP = Constants.PivotArmConstants.kPivotArmkP;//2.4; // An error of 1 rotation results in 2.4 V output
+    PivotArmConfig1.Slot0.kI =Constants.PivotArmConstants.kPivotArmkI; // No output for integrated error
+    PivotArmConfig1.Slot0.kD = Constants.PivotArmConstants.kPivotArmkD; // A velocity of 1 rps results in 0.1 V output
     // Peak output of 8 V
-    configs.Voltage.withPeakForwardVoltage(Volts.of(8))
-      .withPeakReverseVoltage(Volts.of(-8));
+    PivotArmConfig1.Voltage.withPeakForwardVoltage(Volts.of(Constants.PivotArmConstants.PeakForwardVoltage))
+      .withPeakReverseVoltage(Volts.of(Constants.PivotArmConstants.PeakReverseVoltage));
 
     // configs.Slot1.kP = 60; // An error of 1 rotation results in 60 A output
     // configs.Slot1.kI = 0; // No output for integrated error
@@ -70,14 +72,14 @@ BreakModeOn(true);
     // // Peak output of 120 A
     // configs.TorqueCurrent.withPeakForwardTorqueCurrent(Amps.of(120))
     //   .withPeakReverseTorqueCurrent(Amps.of(-120));
-      configs.MotorOutput.Inverted  = Constants.PivotArmConstants.kPivotArmMotorInverted;
+    PivotArmConfig1.MotorOutput.Inverted  = Constants.PivotArmConstants.kPivotArmMotorInverted;
       PivotArmMotor1.setNeutralMode(NeutralModeValue.Brake);
 
     /* Retry config apply up to 5 times, report if failure */
     StatusCode status = StatusCode.StatusCodeNotInitialized;
    
     for (int i = 0; i < 5; ++i) {
-      status = PivotArmMotor1.getConfigurator().apply(configs);
+      status = PivotArmMotor1.getConfigurator().apply(PivotArmConfig1);
      
       if (status.isOK()) break;
     }
@@ -94,22 +96,22 @@ BreakModeOn(true);
       }
     
       public void softlimitsOn(){
-        TalonFXConfiguration toConfigure = new TalonFXConfiguration();
-        toConfigure.SoftwareLimitSwitch.withForwardSoftLimitThreshold(Constants.PivotArmConstants.PivotArmMotorMaxSoftLimit);
-        toConfigure.SoftwareLimitSwitch.withReverseSoftLimitThreshold(Constants.PivotArmConstants.PivotArmMotorMinSoftLimit);
-        toConfigure.SoftwareLimitSwitch.withForwardSoftLimitEnable(true);
-        toConfigure.SoftwareLimitSwitch.withReverseSoftLimitEnable(true);
-        PivotArmMotor1.getConfigurator().apply(toConfigure);
+      
+        PivotArmConfig1.SoftwareLimitSwitch.withForwardSoftLimitThreshold(Constants.PivotArmConstants.PivotArmMotorMaxSoftLimit);
+        PivotArmConfig1.SoftwareLimitSwitch.withReverseSoftLimitThreshold(Constants.PivotArmConstants.PivotArmMotorMinSoftLimit);
+        PivotArmConfig1.SoftwareLimitSwitch.withForwardSoftLimitEnable(true);
+        PivotArmConfig1.SoftwareLimitSwitch.withReverseSoftLimitEnable(true);
+        PivotArmMotor1.getConfigurator().apply(PivotArmConfig1);
         
       }
     
       public void softlimitsOFF(){
-        TalonFXConfiguration toConfigure = new TalonFXConfiguration();
-        toConfigure.SoftwareLimitSwitch.withForwardSoftLimitThreshold(Constants.PivotArmConstants.PivotArmMotorMaxSoftLimit);
-        toConfigure.SoftwareLimitSwitch.withReverseSoftLimitThreshold(Constants.PivotArmConstants.PivotArmMotorMinSoftLimit);
-        toConfigure.SoftwareLimitSwitch.withForwardSoftLimitEnable(false);
-        toConfigure.SoftwareLimitSwitch.withReverseSoftLimitEnable(false);
-        PivotArmMotor1.getConfigurator().apply(toConfigure);
+     
+        PivotArmConfig1.SoftwareLimitSwitch.withForwardSoftLimitThreshold(Constants.PivotArmConstants.PivotArmMotorMaxSoftLimit);
+        PivotArmConfig1.SoftwareLimitSwitch.withReverseSoftLimitThreshold(Constants.PivotArmConstants.PivotArmMotorMinSoftLimit);
+        PivotArmConfig1.SoftwareLimitSwitch.withForwardSoftLimitEnable(false);
+        PivotArmConfig1.SoftwareLimitSwitch.withReverseSoftLimitEnable(false);
+        PivotArmMotor1.getConfigurator().apply(PivotArmConfig1);
         
       }
     
