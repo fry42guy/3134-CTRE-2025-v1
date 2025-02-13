@@ -13,11 +13,11 @@ public class Constants {
         public static final InvertedValue kElevatorMotor1Inverted = InvertedValue.CounterClockwise_Positive;
         public static final InvertedValue kElevatorMotor2Inverted = InvertedValue.Clockwise_Positive;
         public static final double homespeed = -.05;
-        public static final double testspeed = .15;
+        public static final double testspeed = .20;
 
-public static final double Setpoint1 = 5; // Setpoint 1 for the elevator
-public static final double Setpoint2 = 10; // Setpoint 2 for the elevator
-public static final double Setpoint3 = 15; // Setpoint 3 for the elevator
+public static final double Setpoint1 = 10; // Setpoint 1 for the elevator
+public static final double Setpoint2 = 20; // Setpoint 2 for the elevator
+public static final double Setpoint3 = 30; // Setpoint 3 for the elevator
 //public static final double Setpoint4 = 0; // Setpoint 4 for the elevator /////moved to shouffel board
 
 public static final double Elevatorkp = 2.4; // An error of 1 rotation results in 2.4 V output

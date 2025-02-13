@@ -41,7 +41,7 @@ public class ElevatorSubsytem extends SubsystemBase {
   private final NeutralOut m_brake = new NeutralOut();
 
   public double lastsetpoint = 0;
-  public double testSetpoint = 55;
+  public double testSetpoint = 20;
 
  
   
