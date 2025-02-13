@@ -70,9 +70,9 @@ private final PivotArmSubsystem m_pivotArm = new PivotArmSubsystem();
         SmartDashboard.putData("Auto Mode", autoChooser);
         
 m_intake.setDefaultCommand(new RunCommand(() -> m_intake.Setspeed(0.0), m_intake));
-m_pivotArm.setDefaultCommand(new PivotPIDSetpoint(m_pivotArm,m_pivotArm.getposition()));
+//m_pivotArm.setDefaultCommand(new PivotPIDSetpoint(m_pivotArm,m_pivotArm.getposition()));
 
-//m_pivotArm.setDefaultCommand(new RunCommand(() -> m_pivotArm.Setspeed(0.0), m_pivotArm));
+m_pivotArm.setDefaultCommand(new RunCommand(() -> m_pivotArm.Setspeed(0.0), m_pivotArm));
 //m_elevator.setDefaultCommand(new RunCommand(() -> m_elevator.Setspeed(0.0), m_elevator));
 
       
