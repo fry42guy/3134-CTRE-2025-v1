@@ -70,7 +70,7 @@ private final PivotArmSubsystem m_pivotArm = new PivotArmSubsystem();
         
 m_intake.setDefaultCommand(new RunCommand(() -> m_intake.Setspeed(0.0), m_intake));
 m_pivotArm.setDefaultCommand(new RunCommand(() -> m_pivotArm.Setspeed(0.0), m_pivotArm));
-m_elevator.setDefaultCommand(new RunCommand(() -> m_elevator.Setspeed(0.0), m_elevator));
+//m_elevator.setDefaultCommand(new RunCommand(() -> m_elevator.Setspeed(0.0), m_elevator));
 
       
 
@@ -126,8 +126,8 @@ m_elevator.setDefaultCommand(new RunCommand(() -> m_elevator.Setspeed(0.0), m_el
 
         /*Elev softL off */joystick2.leftBumper().onTrue(m_elevator.runOnce(() -> m_elevator.softlimitsOFF()));
         /*Elev softL on */joystick2.rightBumper().onTrue(m_elevator.runOnce(() -> m_elevator.softlimitsOn()));
-        /*Elev fwd */joystick2.leftTrigger().whileTrue(new RunCommand(() -> m_elevator.Setspeed(Constants.ElevatorConstants.testspeed), m_elevator));
-        /*Elev rev */joystick2.rightTrigger().whileTrue(new RunCommand(() -> m_elevator.Setspeed(-Constants.ElevatorConstants.testspeed), m_elevator));
+        /*Elev fwd */joystick2.leftTrigger().whileTrue(new RunCommand(() -> m_elevator.Setspeed(Constants.ElevatorConstants.testspeed), m_elevator).finallyDo(() -> m_elevator.Setspeed(0.0)));
+        /*Elev rev */joystick2.rightTrigger().whileTrue(new RunCommand(() -> m_elevator.Setspeed(-Constants.ElevatorConstants.testspeed), m_elevator).finallyDo(() -> m_elevator.Setspeed(0.0)));
         
         /*Pivot softL off */joystick2.a().onTrue(m_pivotArm.runOnce(()-> m_pivotArm.softlimitsOFF()));
        /*Pivot softL on */ joystick2.b().onTrue(m_pivotArm.runOnce(()-> m_pivotArm.softlimitsOn()));
