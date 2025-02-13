@@ -134,8 +134,8 @@ m_pivotArm.setDefaultCommand(new RunCommand(() -> m_pivotArm.Setspeed(0.0), m_pi
         //jotstick2.x().whileTrue(new RunCommand(() -> m_pivotArm.Setspeed(Constants.PivotArmConstants.testspeed), m_pivotArm));
        // joystick2.y().whileTrue(new RunCommand(() -> m_pivotArm.Setspeed(-Constants.PivotArmConstants.testspeed), m_pivotArm));
 
-        /*Pivot fwd*/joystick2.x().onTrue(m_pivotArm.runOnce(()-> m_pivotArm.Setspeed(Constants.PivotArmConstants.testspeed)));
-        /*Pivot rev*/joystick2.y().onTrue(m_pivotArm.runOnce(()-> m_pivotArm.Setspeed(-Constants.PivotArmConstants.testspeed)));
+        /*Pivot fwd*/joystick2.x().whileTrue(new RunCommand(() -> m_pivotArm.Setspeed(Constants.PivotArmConstants.testspeed), m_pivotArm).finallyDo(()->m_elevator.Setspeed(0.0)));//.onTrue(m_pivotArm.runOnce(()-> m_pivotArm.Setspeed(Constants.PivotArmConstants.testspeed)));
+        /*Pivot rev*/joystick2.y().whileTrue(new RunCommand(() -> m_pivotArm.Setspeed(-Constants.PivotArmConstants.testspeed), m_pivotArm).finallyDo(()->m_elevator.Setspeed(0.0)));
         joystick2.x().onFalse(m_pivotArm.runOnce(()-> m_pivotArm.Setspeed(0.0)));
         joystick2.y().onFalse(m_pivotArm.runOnce(()-> m_pivotArm.Setspeed(0.0)));
         
