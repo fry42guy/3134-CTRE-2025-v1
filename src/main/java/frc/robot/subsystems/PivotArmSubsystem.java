@@ -48,7 +48,7 @@ BreakModeOn(true);
 
 
 
-
+SetPivotArmConfig1();
 
 
 
