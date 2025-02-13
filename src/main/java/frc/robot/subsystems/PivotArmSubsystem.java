@@ -131,6 +131,8 @@ SetPivotArmConfig1();
     
       public void Setspeed(double speed) {
         PivotArmMotor1.set(speed);
+        updatelastsetpoint(getposition());
+
       
       }
     
