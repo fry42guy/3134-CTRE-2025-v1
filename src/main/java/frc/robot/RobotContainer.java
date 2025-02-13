@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
 import frc.robot.Commands.ElevatorPIDSetpoint;
+import frc.robot.Commands.PivotPIDSetpoint;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
@@ -129,15 +130,19 @@ m_pivotArm.setDefaultCommand(new RunCommand(() -> m_pivotArm.Setspeed(0.0), m_pi
         /*Elev fwd */joystick2.leftTrigger().whileTrue(new RunCommand(() -> m_elevator.Setspeed(Constants.ElevatorConstants.testspeed), m_elevator).finallyDo(() -> m_elevator.Setspeed(0.0)));
         /*Elev rev */joystick2.rightTrigger().whileTrue(new RunCommand(() -> m_elevator.Setspeed(-Constants.ElevatorConstants.testspeed), m_elevator).finallyDo(() -> m_elevator.Setspeed(0.0)));
         
-        /*Pivot softL off */joystick2.a().onTrue(m_pivotArm.runOnce(()-> m_pivotArm.softlimitsOFF()));
-       /*Pivot softL on */ joystick2.b().onTrue(m_pivotArm.runOnce(()-> m_pivotArm.softlimitsOn()));
+       //     /*Pivot softL off */joystick2.a().onTrue(m_pivotArm.runOnce(()-> m_pivotArm.softlimitsOFF()));
+       //    /*Pivot softL on */ joystick2.b().onTrue(m_pivotArm.runOnce(()-> m_pivotArm.softlimitsOn()));
         //jotstick2.x().whileTrue(new RunCommand(() -> m_pivotArm.Setspeed(Constants.PivotArmConstants.testspeed), m_pivotArm));
        // joystick2.y().whileTrue(new RunCommand(() -> m_pivotArm.Setspeed(-Constants.PivotArmConstants.testspeed), m_pivotArm));
 
         /*Pivot fwd*/joystick2.x().whileTrue(new RunCommand(() -> m_pivotArm.Setspeed(Constants.PivotArmConstants.testspeed), m_pivotArm).finallyDo(()->m_elevator.Setspeed(0.0)));//.onTrue(m_pivotArm.runOnce(()-> m_pivotArm.Setspeed(Constants.PivotArmConstants.testspeed)));
         /*Pivot rev*/joystick2.y().whileTrue(new RunCommand(() -> m_pivotArm.Setspeed(-Constants.PivotArmConstants.testspeed), m_pivotArm).finallyDo(()->m_elevator.Setspeed(0.0)));
+
+        joystick2.a().onTrue(new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.Setpoint1));
+        joystick2.b().onTrue(new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.Setpoint2));
         joystick2.x().onFalse(m_pivotArm.runOnce(()-> m_pivotArm.Setspeed(0.0)));
         joystick2.y().onFalse(m_pivotArm.runOnce(()-> m_pivotArm.Setspeed(0.0)));
+
         
 
     }

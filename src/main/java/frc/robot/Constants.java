@@ -48,7 +48,7 @@ public static final double PeakReverseVoltage = -1 ; // Peak output of -1 V ****
 
     public class PivotArmConstants {
         public static final int kPivotArmMotorPort = 13;
-        public static final double PivotArmMotorMaxSoftLimit = 25; // Define the max soft limit
+        public static final double PivotArmMotorMaxSoftLimit = 33; // Define the max soft limit
         public static final double PivotArmMotorMinSoftLimit = 0; // Define the min soft limit
         public static final double homespeed = -.05;
         public static final double testspeed = .15;
@@ -65,8 +65,8 @@ public static final double PeakReverseVoltage = -1 ; // Peak output of -1 V ****
         public static final double Setpoint3 = 15; // Setpoint 3 for the elevator
 
 
-        public static final double PeakForwardVoltage = 8; // Peak output of 4 V   ***********************************Default was 8...4?
-public static final double PeakReverseVoltage = -8 ; // Peak output of -1 V ***********************************Default was -8
+        public static final double PeakForwardVoltage = 4; // Peak output of 4 V   ***********************************Default was 8...4?
+public static final double PeakReverseVoltage = -4 ; // Peak output of -1 V ***********************************Default was -8
 
 
 

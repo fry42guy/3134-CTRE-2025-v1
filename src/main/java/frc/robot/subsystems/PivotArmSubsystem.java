@@ -38,6 +38,7 @@ private final PositionVoltage m_positionVoltage = new PositionVoltage(0).withSlo
     
     PivotArmConfig1.MotorOutput.Inverted  = Constants.PivotArmConstants.kPivotArmMotorInverted;
     PivotArmMotor1.getConfigurator().apply(PivotArmConfig1);
+    PivotArmMotor1.setNeutralMode(NeutralModeValue.Brake);
 
 
     softlimitsOn();
