@@ -131,7 +131,7 @@ SetPivotArmConfig1();
     
       public void Setspeed(double speed) {
         PivotArmMotor1.set(speed);
-        //updatelastsetpoint(getposition());
+        updatelastsetpoint(getposition());
 
       
       }
@@ -154,7 +154,10 @@ SetPivotArmConfig1();
       
         return PivotArmMotor1.getPosition().getValueAsDouble();
       }
-    
+    public double getlastsetpoint() {
+      
+      return lastsetpoint;
+    }
 
   @Override
   public void periodic() {
