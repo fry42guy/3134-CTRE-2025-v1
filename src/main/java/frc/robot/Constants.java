@@ -24,7 +24,7 @@ public static final double Elevatorkp = 2.4; // An error of 1 rotation results i
 public static final double Elevatorki = 0; // No output for integrated error
 public static final double Elevatorkd = 0.1; // A velocity of 1 rps results in 0.1 V output
 
-public static final double PeakForwardVoltage = 4; // Peak output of 4 V   ***********************************Default was 8
+public static final double PeakForwardVoltage = 8; // Peak output of 4 V   ***********************************Default was 8...4?
 public static final double PeakReverseVoltage = -1 ; // Peak output of -1 V ***********************************Default was -8
 
 
