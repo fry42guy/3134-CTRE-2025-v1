@@ -15,7 +15,7 @@ public class Constants {
         public static final double homespeed = -.05;
         public static final double testspeed = .20;
 
-public static final double Setpoint1 = 10; // Setpoint 1 for the elevator
+public static final double Setpoint1 = 10; // Setpoint 1 for the elevator frostw/h
 public static final double Setpoint2 = 20; // Setpoint 2 for the elevator
 public static final double Setpoint3 = 30; // Setpoint 3 for the elevator
 //public static final double Setpoint4 = 0; // Setpoint 4 for the elevator /////moved to shouffel board
