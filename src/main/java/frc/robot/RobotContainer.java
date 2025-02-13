@@ -142,8 +142,8 @@ m_pivotArm.setDefaultCommand(new PivotPIDSetpoint(m_pivotArm,m_pivotArm.lastsetp
 
         joystick2.a().onTrue(new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.Setpoint1));
         joystick2.b().onTrue(new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.Setpoint2));
-       //joystick2.x().onFalse(m_pivotArm.runOnce(()-> m_pivotArm.Setspeed(0.0)));
-      // joystick2.y().onFalse(m_pivotArm.runOnce(()-> m_pivotArm.Setspeed(0.0)));
+       joystick2.x().onFalse(m_pivotArm.runOnce(()->  m_pivotArm.updatelastsetpoint(m_pivotArm.getposition())));
+      joystick2.y().onFalse(m_pivotArm.runOnce(()-> m_pivotArm.updatelastsetpoint(m_pivotArm.getposition())));
 
         
 
