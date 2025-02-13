@@ -82,8 +82,8 @@ public class ElevatorSubsytem extends SubsystemBase {
     elevatorConfig1.Slot0.kD = 0.1; // A velocity of 1 rps results in 0.1 V output
     //configs.MotorOutput.Inverted  = Constants.ElevatorConstants.kElevatorMotorInverted;
     // Peak output of 8 V
-    elevatorConfig1.Voltage.withPeakForwardVoltage(Volts.of(8))
-      .withPeakReverseVoltage(Volts.of(-8));
+    elevatorConfig1.Voltage.withPeakForwardVoltage(Volts.of(Constants.ElevatorConstants.PeakForwardVoltage))
+      .withPeakReverseVoltage(Volts.of(Constants.ElevatorConstants.PeakReverseVoltage));
 
     // configs.Slot1.kP = 60; // An error of 1 rotation results in 60 A output
     // configs.Slot1.kI = 0; // No output for integrated error
@@ -112,6 +112,7 @@ public class ElevatorSubsytem extends SubsystemBase {
    elevatorConfig2.Slot0.kP = Constants.ElevatorConstants.Elevatorkp; // An error of 1 rotation results in 2.4 V output
    elevatorConfig2.Slot0.kI = Constants.ElevatorConstants.Elevatorki; // No output for integrated error
    elevatorConfig2.Slot0.kD = Constants.ElevatorConstants.Elevatorkd; // A velocity of 1 rps results in 0.1 V output
+   
     // Peak output of 8 V
     elevatorConfig2.Voltage.withPeakForwardVoltage(Volts.of(Constants.ElevatorConstants.PeakForwardVoltage))
       .withPeakReverseVoltage(Volts.of(Constants.ElevatorConstants.PeakReverseVoltage));
