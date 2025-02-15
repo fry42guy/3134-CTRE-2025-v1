@@ -34,6 +34,8 @@ public static final double PeakReverseVoltage = -1 ; // Peak output of -1 V ****
     public class IntakeConstants {
         public static final int kIntakeMotorPort1 = 11;
         public static final int kIntakeMotorPort2 = 12;
+        public static final int kCanRageID = 14;
+        public static final double CanRangeDetectDistance = .25; // Set the distance you want to detect objects at in Meters
         public static final double REVspeed = -0.25; // Example value, set to your desired reverse speed
         public static final double FWDspeed = 0.25;  // Example value, set to your desired forward speed
         // public static final int kIntakeMinEncoderCount = 0;

@@ -10,6 +10,7 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Joystick;
@@ -24,6 +25,7 @@ import frc.robot.generated.TunerConstants;
 import frc.robot.Commands.ElevatorPIDSetpoint;
 import frc.robot.Commands.PivotPIDSetpoint;
 import frc.robot.subsystems.*;
+import frc.robot.Commands.RunintakeWithStop;
 
 public class RobotContainer {
 
@@ -66,7 +68,13 @@ private final PivotArmSubsystem m_pivotArm = new PivotArmSubsystem();
     private final SendableChooser<Command> autoChooser;
 
     public RobotContainer() {
-        autoChooser = AutoBuilder.buildAutoChooser("Tests");
+
+NamedCommands.registerCommand("ShootCoral", new RunintakeWithStop(m_intake, false));
+
+
+
+        autoChooser = AutoBuilder.buildAutoChooser("Score1Middle");
+    
         SmartDashboard.putData("Auto Mode", autoChooser);
         
 m_intake.setDefaultCommand(new RunCommand(() -> m_intake.Setspeed(0.0), m_intake));
