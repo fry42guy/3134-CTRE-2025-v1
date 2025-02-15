@@ -5,6 +5,19 @@ import com.ctre.phoenix6.signals.InvertedValue;
 public class Constants {
 
     public class ElevatorConstants {
+        public static final double home = .2;
+        public static final double bottomrung = 10.23;
+        public static final double middlerung = 26.74;
+        public static final double toprung = 52.42;
+        public static final double loweralge =20.4;
+        public static final double upperalge = 34.4;
+        public static final double processalge = 5;//??
+
+
+
+
+
+
         public static final int kElevatorMotorPort = 9;
         public static final int kElevatorMotorPort2 = 10;
         public static final double ElevatorMotorMinSoftLimit = 0;
@@ -24,8 +37,8 @@ public static final double Elevatorkp = 2.4; // An error of 1 rotation results i
 public static final double Elevatorki = 0; // No output for integrated error
 public static final double Elevatorkd = 0.1; // A velocity of 1 rps results in 0.1 V output
 
-public static final double PeakForwardVoltage = 5; // Peak output of 4 V   ***********************************Default was 8...4?
-public static final double PeakReverseVoltage = -1 ; // Peak output of -1 V ***********************************Default was -8
+public static final double PeakForwardVoltage = 4.8; // Peak output of 4 V   ***********************************Default was 8...4?
+public static final double PeakReverseVoltage = -2.5 ; // Peak output of -1 V ***********************************Default was -8
 
 
 
@@ -49,12 +62,25 @@ public static final double PeakReverseVoltage = -1 ; // Peak output of -1 V ****
     }
 
     public class PivotArmConstants {
+
+        public static final double home = 0*.625;
+        public static final double bottomrung = 4.9*.625;
+        public static final double middlerung = 4.9*.625;
+        public static final double toprung = 4.7*.625;
+        public static final double loweralge =32.2*.625;
+        public static final double upperalge = 32.2*.625;
+        public static final double processalge = 25;//?
+
+
+
+
+
         public static final int kPivotArmMotorPort = 13;
-        public static final double PivotArmMotorMaxSoftLimit = 33; // Define the max soft limit
+        public static final double PivotArmMotorMaxSoftLimit = 33*.625; // Define the max soft limit
         public static final double PivotArmMotorMinSoftLimit = 0; // Define the min soft limit
         public static final double homespeed = -.05;
         public static final double testspeed = .15;
-        public static final InvertedValue kPivotArmMotorInverted = InvertedValue.Clockwise_Positive;
+        public static final InvertedValue kPivotArmMotorInverted = InvertedValue.Clockwise_Positive;//InvertedValue.Clockwise_Positive;
         public static final int kPivotArmMinEncoderCount = 0;
         public static final int kPivotArmMaxEncoderCount = 25;
         //public static final double kPivotArmIdealSpeed = 0.5;
@@ -62,9 +88,9 @@ public static final double PeakReverseVoltage = -1 ; // Peak output of -1 V ****
         public static final double kPivotArmkI = 0.0;
         public static final double kPivotArmkD = 0.1;
 
-        public static final double Setpoint1 = 5; // Setpoint 1 for the elevator
-        public static final double Setpoint2 = 10; // Setpoint 2 for the elevator
-        public static final double Setpoint3 = 15; // Setpoint 3 for the elevator
+        public static final double Setpoint1 = 5*.625; // Setpoint 1 for the elevator
+        public static final double Setpoint2 = 10*.625; // Setpoint 2 for the elevator
+        public static final double Setpoint3 = 15*.625; // Setpoint 3 for the elevator
 
 
         public static final double PeakForwardVoltage = 4; // Peak output of 4 V   ***********************************Default was 8...4?

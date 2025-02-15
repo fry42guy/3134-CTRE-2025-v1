@@ -4,12 +4,16 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.CANrangeConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.CANrange;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.ForwardLimitValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.ctre.phoenix6.signals.ReverseLimitValue;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -24,6 +28,8 @@ public class IntakeSubsystem extends SubsystemBase {
     TalonFXConfiguration IntakeConfig1 = new TalonFXConfiguration();
     IntakeConfig1.MotorOutput.Inverted  = Constants.IntakeConstants.kIntakeMotor1Inverted;
     IntakeConfig1.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    IntakeConfig1.HardwareLimitSwitch.ForwardLimitEnable =false;
+    IntakeConfig1.HardwareLimitSwitch.ReverseLimitEnable = false;
     IntakeMotor1.getConfigurator().apply(IntakeConfig1);
 
 CANrangeConfiguration RangeConfig1 = new CANrangeConfiguration();
@@ -46,16 +52,22 @@ public void Setspeed(double speed) {
 }
 
 public boolean ObjectDetected() {
-  if (Rangefinder1.getDistance().getValueAsDouble() < Constants.IntakeConstants.CanRangeDetectDistance) {
+
+  //ForwardLimitValue limitstate = IntakeMotor1.getForwardLimit().getValue();
+
+  if (IntakeMotor1.getReverseLimit().getValue() == ReverseLimitValue.ClosedToGround){//Rangefinder1.getDistance().getValueAsDouble() < Constants.IntakeConstants.CanRangeDetectDistance) {
     return true;
   }
   else {
     return false;
-  }}
+  }
+}
 
 
   @Override
   public void periodic() {
+
+    SmartDashboard.putBoolean("Object Detected", ObjectDetected());
     // This method will be called once per scheduler run
   }
 }

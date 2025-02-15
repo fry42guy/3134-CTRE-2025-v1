@@ -13,6 +13,7 @@ public class RunintakeWithStop extends Command {
 
 private boolean originalstateofcanrange;
 private boolean DriveFwd;
+//private double timeout;
 private final IntakeSubsystem m_intake;
 
 
@@ -33,11 +34,12 @@ private final IntakeSubsystem m_intake;
   public void initialize() {
 
 originalstateofcanrange = m_intake.ObjectDetected();
+
 if (DriveFwd) {
   m_intake.Setspeed(Constants.IntakeConstants.FWDspeed);
 }
 else {
-  m_intake.Setspeed(-Constants.IntakeConstants.REVspeed);
+  m_intake.Setspeed(Constants.IntakeConstants.REVspeed);
 }
 
 
@@ -57,7 +59,7 @@ else {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (originalstateofcanrange != m_intake.ObjectDetected()) {
+    if (!originalstateofcanrange && originalstateofcanrange != m_intake.ObjectDetected()) {
       return true;
     }
     else {

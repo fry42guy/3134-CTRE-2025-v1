@@ -9,6 +9,12 @@
           "data": {
             "pathName": "Coral Right"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootCoral"
+          }
         }
       ]
     }
