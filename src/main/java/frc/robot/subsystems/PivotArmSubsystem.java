@@ -11,6 +11,7 @@ import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.ctre.phoenix6.Utils;
 import static edu.wpi.first.units.Units.*;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -130,8 +131,11 @@ SetPivotArmConfig1();
     
     
       public void Setspeed(double speed) {
+
+      
+       
         PivotArmMotor1.set(speed);
-        updatelastsetpoint(getposition());
+      
 
       
       }
@@ -143,6 +147,11 @@ SetPivotArmConfig1();
     
       public void updatelastsetpoint(double setpoint) {
         lastsetpoint = setpoint;
+      }
+
+      public void Stopandupdate(){
+        PivotArmMotor1.set(0.0);
+        lastsetpoint = PivotArmMotor1.getPosition().getValueAsDouble();
       }
     
       public void setPositionsetpoint(double setpoint) {
