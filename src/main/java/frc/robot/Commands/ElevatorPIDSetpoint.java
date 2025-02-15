@@ -11,12 +11,13 @@ import frc.robot.subsystems.ElevatorSubsytem;
 public class ElevatorPIDSetpoint extends Command {
 
   private double Setpoint;
+  private boolean holdcurrent;
 
 
   private final ElevatorSubsytem m_elevator;
   /** Creates a new PIDSetpoint. */
-  public ElevatorPIDSetpoint(ElevatorSubsytem m_elevator , double Setpoint ) {
-
+  public ElevatorPIDSetpoint(ElevatorSubsytem m_elevator , double Setpoint,boolean holdcurrent ) {
+this.holdcurrent = holdcurrent;
     this.Setpoint = Setpoint;
     this.m_elevator = m_elevator;
 
@@ -28,12 +29,16 @@ public class ElevatorPIDSetpoint extends Command {
   @Override
   public void initialize() {
 
+    if (holdcurrent){
+      m_elevator.setPositionsetpoint(m_elevator.getposition());
+    }
+    else{
 
 m_elevator.updatelastsetpoint(Setpoint);
 
 m_elevator.setPositionsetpoint(Setpoint);
 
-  }
+  }}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -46,6 +51,11 @@ m_elevator.setPositionsetpoint(Setpoint);
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+
+if (holdcurrent){return false;}
+
+
+
     if (m_elevator.getposition() < Setpoint + 0.1 && m_elevator.getposition() > Setpoint - 0.1) {
       return true;
     }

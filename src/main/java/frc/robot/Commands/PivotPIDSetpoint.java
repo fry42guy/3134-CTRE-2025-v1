@@ -14,12 +14,15 @@ public class PivotPIDSetpoint extends Command {
 
   private double Setpoint;
   private final PivotArmSubsystem m_PivotArm;
+  private boolean holdcurrent;
 
   /** Creates a new PivotPIDSetpoint. */
-  public PivotPIDSetpoint(PivotArmSubsystem m_PivotArm, double Setpoint ) {
+  public PivotPIDSetpoint(PivotArmSubsystem m_PivotArm, double Setpoint, boolean holdcurrent ) {
 
     this.Setpoint = Setpoint;
     this.m_PivotArm = m_PivotArm;
+    this.holdcurrent = holdcurrent;
+    //this.uselast = uselast;
     addRequirements(m_PivotArm);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -28,9 +31,15 @@ public class PivotPIDSetpoint extends Command {
   @Override
   public void initialize() {
 
+    if (holdcurrent){
+      m_PivotArm.setPositionsetpoint(m_PivotArm.getposition());
+    }
+else{
     m_PivotArm.updatelastsetpoint(Setpoint);
+
+   
     m_PivotArm.setPositionsetpoint(Setpoint);
-  }
+  }}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -43,6 +52,10 @@ public class PivotPIDSetpoint extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+
+
+    if (holdcurrent){return false;}
+
 
 if (m_PivotArm.getposition() < Setpoint + 0.1 && m_PivotArm.getposition() > Setpoint - 0.1) {
 

@@ -30,8 +30,8 @@ private final PositionVoltage m_positionVoltage = new PositionVoltage(0).withSlo
   /* Keep a brake request so we can disable the motor */
   private final NeutralOut m_brake = new NeutralOut();
 
-  public double lastsetpoint = 0;
-  public double testSetpoint = 55;
+  private double lastsetpoint;// = 3;
+  //public double testSetpoint = 55;
 
   /** Creates a new Pivot_Arm. */
   public PivotArmSubsystem() {
@@ -41,11 +41,11 @@ private final PositionVoltage m_positionVoltage = new PositionVoltage(0).withSlo
     PivotArmMotor1.getConfigurator().apply(PivotArmConfig1);
     PivotArmMotor1.setNeutralMode(NeutralModeValue.Brake);
 
-
+//lastsetpoint = 3;
     softlimitsOn();
 
 BreakModeOn(true);
-
+System.out.println("subsytem init");
 
 
 
@@ -150,8 +150,10 @@ SetPivotArmConfig1();
       }
 
       public void Stopandupdate(){
+
         PivotArmMotor1.set(0.0);
-        lastsetpoint = PivotArmMotor1.getPosition().getValueAsDouble();
+
+        lastsetpoint = PivotArmMotor1.getPosition().getValueAsDouble();//getposition();
       }
     
       public void setPositionsetpoint(double setpoint) {
@@ -171,7 +173,7 @@ SetPivotArmConfig1();
   @Override
   public void periodic() {
 
-      SmartDashboard.putNumber("Pivot Setpoint", lastsetpoint);
+      SmartDashboard.putNumber("Pivot Setpoint", getlastsetpoint());
     SmartDashboard.putNumber("Pivot Motor Position", getposition());
     // This method will be called once per scheduler run
   }

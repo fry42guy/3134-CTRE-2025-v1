@@ -50,7 +50,7 @@ private final PivotArmSubsystem m_pivotArm = new PivotArmSubsystem();
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
-            .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+            .withDeadband(MaxSpeed * 0.15).withRotationalDeadband(MaxAngularRate * 0.15) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
@@ -78,7 +78,9 @@ NamedCommands.registerCommand("ShootCoral", new RunintakeWithStop(m_intake, fals
         SmartDashboard.putData("Auto Mode", autoChooser);
         
 m_intake.setDefaultCommand(new RunCommand(() -> m_intake.Setspeed(0.0), m_intake));
-m_pivotArm.setDefaultCommand(new PivotPIDSetpoint(m_pivotArm,m_pivotArm.getlastsetpoint()));
+m_pivotArm.setDefaultCommand(new PivotPIDSetpoint(m_pivotArm,0.0,true));
+m_elevator.setDefaultCommand(new ElevatorPIDSetpoint(m_elevator, 0.0, true));
+
 
 //m_pivotArm.setDefaultCommand(new RunCommand(() -> m_pivotArm.Setspeed(0.0), m_pivotArm));
 //m_elevator.setDefaultCommand(new RunCommand(() -> m_elevator.Setspeed(0.0), m_elevator));
@@ -124,9 +126,9 @@ m_pivotArm.setDefaultCommand(new PivotPIDSetpoint(m_pivotArm,m_pivotArm.getlasts
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        /*Elev setpoin1 */joystick.a().onTrue(new ElevatorPIDSetpoint(m_elevator , Constants.ElevatorConstants.Setpoint1));
-       /*Elev setpoin2 */ joystick.b().onTrue(new ElevatorPIDSetpoint(m_elevator , Constants.ElevatorConstants.Setpoint2));
-       /*Elev setpoin3 */ joystick.x().onTrue(new ElevatorPIDSetpoint(m_elevator , Constants.ElevatorConstants.Setpoint3));
+        /*Elev setpoin1 */joystick.a().onTrue(new ElevatorPIDSetpoint(m_elevator , Constants.ElevatorConstants.Setpoint1,false));
+       /*Elev setpoin2 */ joystick.b().onTrue(new ElevatorPIDSetpoint(m_elevator , Constants.ElevatorConstants.Setpoint2,false));
+       /*Elev setpoin3 */ joystick.x().onTrue(new ElevatorPIDSetpoint(m_elevator , Constants.ElevatorConstants.Setpoint3,false));
         //joystick.y().onTrue(new PIDSetpoint(m_elevator , SmartDashboard.getNumber("TestSetpoint", 100)));
        /*Elev breakmode on */ joystick.rightBumper().onTrue(m_elevator.runOnce(() -> m_elevator.BreakModeOn(true)));
         /*Elev break mode off */joystick.leftBumper().onTrue(m_elevator.runOnce(() -> m_elevator.BreakModeOn(false)));
@@ -135,8 +137,8 @@ m_pivotArm.setDefaultCommand(new PivotPIDSetpoint(m_pivotArm,m_pivotArm.getlasts
 
 
 
-        /*Elev softL off */joystick2.leftBumper().onTrue(m_elevator.runOnce(() -> m_elevator.softlimitsOFF()));
-        /*Elev softL on */joystick2.rightBumper().onTrue(m_elevator.runOnce(() -> m_elevator.softlimitsOn()));
+       // /*Elev softL off */joystick2.leftBumper().onTrue(m_elevator.runOnce(() -> m_elevator.softlimitsOFF()));
+       // /*Elev softL on */joystick2.rightBumper().onTrue(m_elevator.runOnce(() -> m_elevator.softlimitsOn()));
         /*Elev fwd */joystick2.leftTrigger().whileTrue(new RunCommand(() -> m_elevator.Setspeed(Constants.ElevatorConstants.testspeed), m_elevator).finallyDo(() -> m_elevator.Setspeed(0.0)));
         /*Elev rev */joystick2.rightTrigger().whileTrue(new RunCommand(() -> m_elevator.Setspeed(-Constants.ElevatorConstants.testspeed), m_elevator).finallyDo(() -> m_elevator.Setspeed(0.0)));
         
@@ -148,8 +150,8 @@ m_pivotArm.setDefaultCommand(new PivotPIDSetpoint(m_pivotArm,m_pivotArm.getlasts
         /*Pivot fwd*/joystick2.x().whileTrue(new RunCommand(() -> m_pivotArm.Setspeed(Constants.PivotArmConstants.testspeed), m_pivotArm).finallyDo(()-> m_pivotArm.Stopandupdate()));//.onTrue(m_pivotArm.runOnce(()-> m_pivotArm.Setspeed(Constants.PivotArmConstants.testspeed)));
         /*Pivot rev*/joystick2.y().whileTrue(new RunCommand(() -> m_pivotArm.Setspeed(-Constants.PivotArmConstants.testspeed), m_pivotArm).finallyDo(()-> m_pivotArm.Stopandupdate()));
 
-        joystick2.a().onTrue(new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.Setpoint1));
-        joystick2.b().onTrue(new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.Setpoint2));
+        joystick2.a().onTrue(new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.Setpoint1,false));
+        joystick2.b().onTrue(new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.Setpoint2,false));
        //joystick2.x().onFalse(m_pivotArm.runOnce(()->  m_pivotArm.updatelastsetpoint(m_pivotArm.getposition())));
       //joystick2.y().onFalse(m_pivotArm.runOnce(()-> m_pivotArm.updatelastsetpoint(m_pivotArm.getposition())));
 
