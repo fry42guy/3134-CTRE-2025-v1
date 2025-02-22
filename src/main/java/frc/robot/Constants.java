@@ -100,5 +100,16 @@ public static final double PeakReverseVoltage = -4 ; // Peak output of -1 V ****
 
 
     }
+
+
+    public class ClimberConstants{
+
+        public static final int kClimberMotorPort = 15;
+        public static final double kfwdspeed = 0.25;
+        public static final double krevspeed = -0.25;
+        public static final InvertedValue kClimberMotorInverted =InvertedValue.Clockwise_Positive;
+
+
+    }
     
 }

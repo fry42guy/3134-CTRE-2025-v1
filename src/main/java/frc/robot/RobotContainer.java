@@ -34,6 +34,7 @@ public class RobotContainer {
 private final ElevatorSubsytem m_elevator = new ElevatorSubsytem();
 private final IntakeSubsystem m_intake = new IntakeSubsystem();
 private final PivotArmSubsystem m_pivotArm = new PivotArmSubsystem();
+private final ClimberSubsystem m_climber = new ClimberSubsystem();
 
 
 
@@ -139,7 +140,8 @@ joystick.b().onTrue(new ParallelCommandGroup(new ElevatorPIDSetpoint(m_elevator 
 joystick.leftStick().onTrue(new SequentialCommandGroup(new ParallelCommandGroup(new ElevatorPIDSetpoint(m_elevator , Constants.ElevatorConstants.home,false),new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.bottomrung,false)),new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.home,false)));
 joystick.y().onTrue(new ParallelCommandGroup(new ElevatorPIDSetpoint(m_elevator , Constants.ElevatorConstants.processalge,false),new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.processalge,false)));
 
-
+joystick.povUp().whileTrue(new RunCommand(()-> m_climber.Setspeed(Constants.ClimberConstants.kfwdspeed),m_climber ).finallyDo(() -> m_climber.Setspeed(0)));
+joystick.povDown().whileTrue(new RunCommand(()-> m_climber.Setspeed(Constants.ClimberConstants.krevspeed),m_climber ).finallyDo(() -> m_climber.Setspeed(0)));
 
        // /*Elev setpoin1 */joystick.a().onTrue(new ElevatorPIDSetpoint(m_elevator , Constants.ElevatorConstants.Setpoint1,false));
       // /*Elev setpoin2 */ joystick.b().onTrue(new ElevatorPIDSetpoint(m_elevator , Constants.ElevatorConstants.Setpoint2,false));
