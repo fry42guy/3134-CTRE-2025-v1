@@ -111,5 +111,11 @@ public static final double PeakReverseVoltage = -4 ; // Peak output of -1 V ****
 
 
     }
+
+    public class ApriltagConstants {
+       public final double coral_Leftrightoffset_IN = 12;
+         public final double coral_Frontbackoffset_IN = 12;
+            public final double coral_Rotationoffset_deg= 0;
+    }
     
 }
