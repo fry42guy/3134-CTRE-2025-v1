@@ -268,8 +268,8 @@ m_feild.setRobotPose(getState().Pose);
 
 
         SmartDashboard.putNumber("Camera_Target_Rotation", Units.radiansToDegrees(LimelightHelpers.getBotPose3d_TargetSpace("limelight").getRotation().getAngle()));
-        SmartDashboard.putNumber("Camera_Target_x", LimelightHelpers.getBotPose3d_TargetSpace("limelight").getX());
-        SmartDashboard.putNumber("Camera_Target_y", LimelightHelpers.getBotPose3d_TargetSpace("limelight").getY());
+        SmartDashboard.putNumber("Camera_Target_x", Units.metersToInches(LimelightHelpers.getBotPose3d_TargetSpace("limelight").getX()));
+        SmartDashboard.putNumber("Camera_Target_y", Units.metersToInches(LimelightHelpers.getBotPose3d_TargetSpace("limelight").getY()));
 
 
         /*
