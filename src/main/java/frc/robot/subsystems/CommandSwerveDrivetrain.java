@@ -267,7 +267,9 @@ m_feild.setRobotPose(getState().Pose);
 
 
         SmartDashboard.putNumber("Camera_Target_Rotation", LimelightHelpers.getBotPose3d_TargetSpace("limelight").getRotation().getAngle());
-
+        SmartDashboard.putNumber("Camera_Target_x", LimelightHelpers.getBotPose3d_TargetSpace("limelight").getX());
+        SmartDashboard.putNumber("Camera_Target_y", LimelightHelpers.getBotPose3d_TargetSpace("limelight").getY());
+        
 
         /*
          * Periodically try to apply the operator perspective.
