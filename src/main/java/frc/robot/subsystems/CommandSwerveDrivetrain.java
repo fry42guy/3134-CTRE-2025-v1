@@ -20,6 +20,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Notifier;
@@ -266,10 +267,10 @@ m_feild.setRobotPose(getState().Pose);
         SmartDashboard.putData("Feild", m_feild);
 
 
-        SmartDashboard.putNumber("Camera_Target_Rotation", LimelightHelpers.getBotPose3d_TargetSpace("limelight").getRotation().getAngle());
+        SmartDashboard.putNumber("Camera_Target_Rotation", Units.radiansToDegrees(LimelightHelpers.getBotPose3d_TargetSpace("limelight").getRotation().getAngle()));
         SmartDashboard.putNumber("Camera_Target_x", LimelightHelpers.getBotPose3d_TargetSpace("limelight").getX());
         SmartDashboard.putNumber("Camera_Target_y", LimelightHelpers.getBotPose3d_TargetSpace("limelight").getY());
-        
+
 
         /*
          * Periodically try to apply the operator perspective.
