@@ -34,7 +34,7 @@ public class LimeLightConstants {
  
         public static final InvertedValue kElevatorMotor1Inverted = InvertedValue.CounterClockwise_Positive;
         public static final InvertedValue kElevatorMotor2Inverted = InvertedValue.Clockwise_Positive;
-        public static final double homespeed = -.05;
+        public static final double homespeed = -.1;
         public static final double testspeed = .40;
 
 public static final double Setpoint1 = 10; // Setpoint 1 for the elevator frostw/h
