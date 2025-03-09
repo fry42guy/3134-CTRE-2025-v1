@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import static edu.wpi.first.units.Units.*;
 
 import java.util.Optional;
+import java.util.function.IntSupplier;
 import java.util.function.Supplier;
 
 import com.ctre.phoenix6.SignalLogger;
@@ -29,6 +30,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.measure.LinearVelocity;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Notifier;
@@ -55,6 +57,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     private Notifier m_simNotifier = null;
     private double m_lastSimTime;
     private AprilTagFieldLayout  fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
+    public Integer lastTagID = -2;
     
 
     /* Blue alliance sees forward as 0 degrees (toward red alliance wall) */
@@ -279,8 +282,31 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     public Command sysIdDynamic(SysIdRoutine.Direction direction) {
         return m_sysIdRoutineToApply.dynamic(direction);
     }
+
+    public int convertIDtoInt(double tagdouble ){
+        Integer tagint = (int) tagdouble;
+     
+         return tagint;
+     
+      }
+     
  
     public void periodic() {
+
+
+
+      //  System.out.println(getTagID().getAsInt());
+
+        if (Utils.isSimulation()){
+           
+            lastTagID = convertIDtoInt(SmartDashboard.getNumber("lastTagID", -1.0));
+          
+          }
+          else{
+            lastTagID = convertIDtoInt(LimelightHelpers.getFiducialID("limelight"));
+          
+          }
+          
 
 
         SmartDashboard.putNumber("April ID", LimelightHelpers.getFiducialID("limelight"));
@@ -507,19 +533,74 @@ public Pose2d getTargetPose(int ID , Boolean Leftside) {
 
 
 
-public int getTagID() {
+// public int getTagID() {
 
-double d_id = LimelightHelpers.getFiducialID("limelight");
+// double d_id = LimelightHelpers.getFiducialID("limelight");
 
-int id = (int) d_id;
+// int id = (int) d_id;
 
-    return id;
+//     return id;
 
+// }
+
+public IntSupplier getTagID() {
+
+    IntSupplier tagID = () -> lastTagID;
+
+    return tagID;
+}
+
+
+public void driveToCoral2(Boolean leftSide) {
+
+    PathConstraints constraints = new PathConstraints(
+        3, 4.0,
+        Units.degreesToRadians(540), Units.degreesToRadians(720));
+
+    // Since AutoBuilder is configured, we can use it to build pathfinding commands
+
+    //double d_ID = LimelightHelpers.getFiducialID("limelight");
+
+    //int ID = getTagID();
+
+   SmartDashboard.putNumber("April ID_2", lastTagID);
+
+
+   if (lastTagID > 0){
+     AutoBuilder.pathfindToPose(
+       // pose,
+       getTargetPose(lastTagID, leftSide),
+        constraints,
+        edu.wpi.first.units.Units.MetersPerSecond.of(0) // Goal end velocity in meters/sec
+    );
+}
+
+}
+
+public int getlastTagID() {
+    return lastTagID;
 }
 
 
 
- public Command driveToCoral(Boolean leftSide) {
+
+public Command Autodrive( Pose2d pose, PathConstraints constraints, LinearVelocity goalEndVelocity){
+
+
+
+    return AutoBuilder.pathfindToPose(
+        pose,
+        constraints,
+        goalEndVelocity
+    );
+}
+
+
+
+
+
+
+ public Command driveToCoral(IntSupplier ID, Boolean leftSide) {
     // Create the constraints to use while pathfinding
 
 
@@ -537,13 +618,17 @@ int id = (int) d_id;
 
     //double d_ID = LimelightHelpers.getFiducialID("limelight");
 
-    int ID = getTagID();
+    //int ID = getTagID();
 
-    SmartDashboard.putNumber("April ID_2", ID);
-if (ID > 0){
+   //SmartDashboard.putNumber("April ID_2", lastTagID);
+
+ 
+
+
+if (ID.getAsInt() > 0){
     return AutoBuilder.pathfindToPose(
        // pose,
-       getTargetPose(ID, leftSide),
+       getTargetPose(ID.getAsInt(), leftSide),
         constraints,
         edu.wpi.first.units.Units.MetersPerSecond.of(0) // Goal end velocity in meters/sec
     );
@@ -558,6 +643,7 @@ else {
  }
 
   public Command dothingCommand() {
+    System.out.println("Do nothing here");
     return run(() -> {
         // Do something here
     });

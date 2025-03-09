@@ -6,6 +6,8 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import java.util.function.Supplier;
+
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
@@ -19,16 +21,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ProxyCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
+import frc.robot.Commands.Align_To_Coral;
+import frc.robot.Commands.Align_To_Coral2;
 import frc.robot.Commands.ElevatorPIDSetpoint;
 import frc.robot.Commands.PivotPIDSetpoint;
 import frc.robot.subsystems.*;
 import frc.robot.Commands.RunintakeWithStop;
+import frc.robot.Commands.Align_To_Coral;
 
 public class RobotContainer {
 
@@ -36,7 +42,9 @@ private final ElevatorSubsytem m_elevator = new ElevatorSubsytem();
 private final IntakeSubsystem m_intake = new IntakeSubsystem();
 private final PivotArmSubsystem m_pivotArm = new PivotArmSubsystem();
 private final ClimberSubsystem m_climber = new ClimberSubsystem();
-private final LimelightHelpers m_LimelightHelpers = new LimelightHelpers();
+//private final LimelightHelpers m_LimelightHelpers = new LimelightHelpers();
+private final Apriltagtracker m_Apriltagtracker = new Apriltagtracker();
+
 
 
 
@@ -167,10 +175,14 @@ joystick.povDown().whileTrue(new RunCommand(()-> m_climber.Setspeed(Constants.Cl
         /*Pivot fwd*/joystick2.x().whileTrue(new RunCommand(() -> m_pivotArm.Setspeed(Constants.PivotArmConstants.testspeed), m_pivotArm).finallyDo(()-> m_pivotArm.Stopandupdate()));//.onTrue(m_pivotArm.runOnce(()-> m_pivotArm.Setspeed(Constants.PivotArmConstants.testspeed)));
         /*Pivot rev*/joystick2.y().whileTrue(new RunCommand(() -> m_pivotArm.Setspeed(-Constants.PivotArmConstants.testspeed), m_pivotArm).finallyDo(()-> m_pivotArm.Stopandupdate()));
         //joystick.start().whileTrue(drivetrain.driveToCoral(true));
-        joystick.povLeft().whileTrue(new SequentialCommandGroup( drivetrain.driveToCoral(true)));
-        joystick.povRight().whileTrue(new SequentialCommandGroup( drivetrain.driveToCoral(false)));
-        
+        //joystick.povLeft().whileTrue(drivetrain.driveToCoral(drivetrain.getTagID(),true));
+       // joystick.povRight().whileTrue(rivetrain.driveToCoral(drivetrain.getTagID(), false));
+       //joystick.povRight().whileTrue(new ProxyCommand(new Align_To_Coral2(m_Apriltagtracker,drivetrain,false)));
+       joystick.povLeft().whileTrue(new ProxyCommand(() -> new Align_To_Coral2(m_Apriltagtracker, drivetrain, true)));
+       joystick.povRight().whileTrue(new ProxyCommand(() -> new Align_To_Coral2(m_Apriltagtracker, drivetrain, false)));
 
+    //   joystick.povRight().whileTrue(new Align_To_Coral(m_Apriltagtracker,drivetrain,false));
+    //   joystick.povLeft().whileTrue(new Align_To_Coral(m_Apriltagtracker,drivetrain,true));
        // joystick2.a().onTrue(new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.Setpoint1,false));
        // joystick2.b().onTrue(new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.Setpoint2,false));
        //joystick2.x().onFalse(m_pivotArm.runOnce(()->  m_pivotArm.updatelastsetpoint(m_pivotArm.getposition())));
