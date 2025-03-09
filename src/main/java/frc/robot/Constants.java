@@ -7,7 +7,7 @@ public class Constants {
 
 public class LimeLightConstants {
 
-    public static final double Side_to_side_offset_in = 8;
+    public static final double Side_to_side_offset_in = 6.46875;
     public static final double Front_to_back_offset_in = 18;
 
 }
