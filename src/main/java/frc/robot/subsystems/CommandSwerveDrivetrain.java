@@ -478,16 +478,16 @@ public Pose2d getTargetPose(int tagID,Boolean Leftside) {
     double leftOffset = Units.inchesToMeters(Constants.LimeLightConstants.Side_to_side_offset_in);
     double backwardOffset = Units.inchesToMeters(-Constants.LimeLightConstants.Front_to_back_offset_in);
 
-    // if (!Leftside) {
-    //     leftOffset = leftOffset*-1;
-    // }
+    if (!Leftside) {
+        leftOffset = leftOffset*-1;
+    }
 
     // Calculate the new position
     double newX = tagX - (backwardOffset * Math.cos(tagTheta)) + (leftOffset * Math.sin(tagTheta));
     double newY = tagY - (backwardOffset * Math.sin(tagTheta)) - (leftOffset * Math.cos(tagTheta));
 
     // The robot should face the same direction as the tag
-    Rotation2d newRotation = tagPose.getRotation().plus(new Rotation2d(Units.degreesToRadians(180)));
+    Rotation2d newRotation = tagPose.getRotation();//.plus(new Rotation2d(Units.degreesToRadians(180)));
 
     // Return the new pose
     return new Pose2d(newX, newY, newRotation);

@@ -166,7 +166,9 @@ joystick.povDown().whileTrue(new RunCommand(()-> m_climber.Setspeed(Constants.Cl
 
         /*Pivot fwd*/joystick2.x().whileTrue(new RunCommand(() -> m_pivotArm.Setspeed(Constants.PivotArmConstants.testspeed), m_pivotArm).finallyDo(()-> m_pivotArm.Stopandupdate()));//.onTrue(m_pivotArm.runOnce(()-> m_pivotArm.Setspeed(Constants.PivotArmConstants.testspeed)));
         /*Pivot rev*/joystick2.y().whileTrue(new RunCommand(() -> m_pivotArm.Setspeed(-Constants.PivotArmConstants.testspeed), m_pivotArm).finallyDo(()-> m_pivotArm.Stopandupdate()));
-        joystick.start().whileTrue(drivetrain.driveToCoral(true));
+        //joystick.start().whileTrue(drivetrain.driveToCoral(true));
+        joystick.povLeft().whileTrue(drivetrain.driveToCoral(true));
+        joystick.povRight().whileTrue(drivetrain.driveToCoral(false));
         
 
        // joystick2.a().onTrue(new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.Setpoint1,false));
