@@ -4,6 +4,15 @@ import com.ctre.phoenix6.signals.InvertedValue;
 
 public class Constants {
 
+
+public class LimeLightConstants {
+
+    public static final double Side_to_side_offset_in = 8;
+    public static final double Front_to_back_offset_in = 18;
+
+}
+
+
     public class ElevatorConstants {
         public static final double home = .2;
         public static final double bottomrung = 10.23;
@@ -62,6 +71,8 @@ public static final double PeakReverseVoltage = -2.5 ; // Peak output of -1 V **
     }
 
     public class PivotArmConstants {
+
+        
 
         public static final double home = 0*.625;
         public static final double bottomrung = 4.9*.625;

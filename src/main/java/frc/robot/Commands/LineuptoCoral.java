@@ -7,6 +7,7 @@ package frc.robot.Commands;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.ctre.phoenix6.swerve.SwerveRequest.RobotCentric;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.LimelightHelpers;
@@ -22,6 +23,10 @@ private boolean leftside;
 private LimelightHelpers m_LimelightHelpers = new LimelightHelpers();
 private Pose2d m_Pose2d = new Pose2d();
 private SwerveRequest.RobotCentric m_SwerveRequest = new SwerveRequest.RobotCentric();
+
+private PIDController m_xController = new PIDController(0.1, 0, 0);
+private PIDController m_yController = new PIDController(0.1, 0, 0);
+private PIDController m_thetaController = new PIDController(0.1, 0, 0);
 
 
 
@@ -44,7 +49,7 @@ private SwerveRequest.RobotCentric m_SwerveRequest = new SwerveRequest.RobotCent
 
     m_Pose2d = LimelightHelpers.getCameraPose3d_TargetSpace("limelight").toPose2d();
 
-    
+
 
     m_SwerveDrivetrain.setControl(m_SwerveRequest.withVelocityX(0.0).withVelocityY(0.0).withRotationalRate(0));
 

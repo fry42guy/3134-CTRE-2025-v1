@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.*;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import com.ctre.phoenix6.SignalLogger;
@@ -14,10 +15,17 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.path.PathConstraints;
 
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
@@ -30,6 +38,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.generated.TunerConstants.TunerSwerveDrivetrain;
 
@@ -38,11 +47,14 @@ import frc.robot.generated.TunerConstants.TunerSwerveDrivetrain;
  * Subsystem so it can easily be used in command-based projects.
  */
 public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Subsystem {
+
      private final Field2d m_feild = new Field2d();
 
     private static final double kSimLoopPeriod = 0.005; // 5 ms
     private Notifier m_simNotifier = null;
     private double m_lastSimTime;
+    private AprilTagFieldLayout  fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
+    
 
     /* Blue alliance sees forward as 0 degrees (toward red alliance wall) */
     private static final Rotation2d kBlueAlliancePerspectiveRotation = Rotation2d.kZero;
@@ -140,7 +152,10 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
             startSimThread();
         }
         configureAutoBuilder();
+
+        
     }
+
 
     /**
      * Constructs a CTRE SwerveDrivetrain using the specified constants.
@@ -201,6 +216,9 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     }
 
     private void configureAutoBuilder() {
+
+       
+
         try {
             var config = RobotConfig.fromGUISettings();
             AutoBuilder.configure(
@@ -263,11 +281,41 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
  
     public void periodic() {
 
+
+if (DriverStation.isTeleop()) {
+Boolean doRejectUpdate = true;
+    LimelightHelpers.PoseEstimate  mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+    if(mt1.tagCount == 1 && mt1.rawFiducials.length == 1)
+    {
+      if(mt1.rawFiducials[0].ambiguity > .7)
+      {
+        doRejectUpdate = true;
+      }
+      if(mt1.rawFiducials[0].distToCamera > 3)
+      {
+        doRejectUpdate = true;
+      }
+    }
+    if(mt1.tagCount == 0)
+    {
+      doRejectUpdate = true;
+    }
+
+    if(!doRejectUpdate)
+      {
+        addVisionMeasurement( mt1.pose ,mt1.timestampSeconds);
+      }
+   
+    
+}
+
+
+
 m_feild.setRobotPose(getState().Pose);
         SmartDashboard.putData("Feild", m_feild);
 
 
-        SmartDashboard.putNumber("Camera_Target_Rotation", Units.radiansToDegrees(LimelightHelpers.getBotPose3d_TargetSpace("limelight").getRotation().getAngle()));
+       // SmartDashboard.putNumber("Camera_Target_Rotation", Units.radiansToDegrees(LimelightHelpers.getBotPose3d_TargetSpace("limelight")));
         SmartDashboard.putNumber("Camera_Target_x", Units.metersToInches(LimelightHelpers.getBotPose3d_TargetSpace("limelight").getX()));
         SmartDashboard.putNumber("Camera_Target_y", Units.metersToInches(LimelightHelpers.getBotPose3d_TargetSpace("limelight").getZ()));
 
@@ -339,4 +387,135 @@ m_feild.setRobotPose(getState().Pose);
     ) {
         super.addVisionMeasurement(visionRobotPoseMeters, Utils.fpgaToCurrentTime(timestampSeconds), visionMeasurementStdDevs);
     }
+
+
+    public Optional<Pose3d> getTagPose(int tagID) {
+        return fieldLayout.getTagPose(tagID);
+    }
+
+
+
+//  public  Pose2d getTargetPose() {
+
+
+
+
+
+//         // Convert AprilTag 3D Pose to 2D (X, Y, and Rotation)
+//         //Pose2d tagPose2d = tagPose.toPose2d();
+//         Pose2d tagPose2d = fieldLayout.getTagPose(8).get().toPose2d();
+//         Rotation2d tagRotation = tagPose2d.getRotation();
+
+//         // Define offset (move 1 foot left, 1 foot back)
+//         double offsetX = Units.feetToMeters(1.0); // Left relative to tag
+//         double offsetY = Units.feetToMeters(1.0); // Back relative to tag
+
+//         // Transform offset based on tag's rotation
+//         Transform2d transform = new Transform2d(new Translation2d(offsetX, offsetY), tagRotation);
+
+//         // Compute the new pose
+//         return tagPose2d.plus(transform);
+//     }
+
+// public Pose2d getTargetPose() {
+//     // Get the tag pose in field coordinates
+
+
+
+
+
+//     Optional<Pose3d> tagPose3dOpt = fieldLayout.getTagPose(17);
+//     if (tagPose3dOpt.isEmpty()) {
+//         return new Pose2d(); // Return a default pose if tag is not found
+//     }
+
+//     Pose2d tagPose2d = tagPose3dOpt.get().toPose2d();
+//     Rotation2d tagRotation = tagPose2d.getRotation(); // Tag's rotation on the field
+
+//     // Define offset (1 foot LEFT relative to the AprilTag's facing direction)
+//     Translation2d offset = new Translation2d(
+//         1,                     // No forward/backward movement
+//       1 // Units.feetToMeters(1) // Move LEFT in the AprilTag's local frame
+//     );
+
+//     // Rotate the offset to align with the tag’s orientation
+//     Translation2d transformedOffset = offset.rotateBy(tagRotation.unaryMinus()); 
+
+//     // Compute the new pose (final field coordinates)
+//     Pose2d targetPose = new Pose2d(
+//         tagPose2d.getTranslation().plus(transformedOffset),
+//         tagRotation // Keep robot facing the tag
+//     );
+
+//   SmartDashboard.putNumber("TargetPoseX", targetPose.getX());
+//     SmartDashboard.putNumber("TargetPoseY", targetPose.getY());
+//     SmartDashboard.putNumber("TargetPoseRotation", targetPose.getRotation().getRadians());
+//     SmartDashboard.putNumber("TagPosX", tagPose2d.getX());
+//     SmartDashboard.putNumber("TagPosY", tagPose2d.getY());
+//     SmartDashboard.putNumber("TagRotation", tagPose2d.getRotation().getRadians());
+
+
+//     return targetPose;
+// }
+
+public Pose2d getTargetPose(int tagID,Boolean Leftside) {
+    // Retrieve the AprilTag's pose
+    Optional<Pose3d> tagPoseOptional = fieldLayout.getTagPose(tagID);
+    if (tagPoseOptional.isEmpty()) {
+        // Handle the case where the tag ID is not found
+        return null;
+    }
+    Pose2d tagPose = tagPoseOptional.get().toPose2d();
+
+    // Tag's position and orientation
+    double tagX = tagPose.getX();
+    double tagY = tagPose.getY();
+    double tagTheta = tagPose.getRotation().getRadians();
+
+    // Offsets in meters
+    double leftOffset = Units.inchesToMeters(Constants.LimeLightConstants.Side_to_side_offset_in);
+    double backwardOffset = Units.inchesToMeters(-Constants.LimeLightConstants.Front_to_back_offset_in);
+
+    // Calculate the new position
+    double newX = tagX - (backwardOffset * Math.cos(tagTheta)) + (leftOffset * Math.sin(tagTheta));
+    double newY = tagY - (backwardOffset * Math.sin(tagTheta)) - (leftOffset * Math.cos(tagTheta));
+
+    // The robot should face the same direction as the tag
+    Rotation2d newRotation = tagPose.getRotation();
+
+    // Return the new pose
+    return new Pose2d(newX, newY, newRotation);
+}
+
+
+
+ public Command driveToCoral(Boolean leftSide) {
+    // Create the constraints to use while pathfinding
+
+
+
+
+
+
+
+
+    PathConstraints constraints = new PathConstraints(
+        3, 4.0,
+        Units.degreesToRadians(540), Units.degreesToRadians(720));
+
+    // Since AutoBuilder is configured, we can use it to build pathfinding commands
+    return AutoBuilder.pathfindToPose(
+       // pose,
+       getTargetPose(18,leftSide),
+        constraints,
+        edu.wpi.first.units.Units.MetersPerSecond.of(0) // Goal end velocity in meters/sec
+    );
+  }
+
+
+
+
+
+
+
 }
