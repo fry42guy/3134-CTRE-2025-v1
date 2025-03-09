@@ -506,6 +506,19 @@ public Pose2d getTargetPose(int ID , Boolean Leftside) {
 
 
 
+
+public int getTagID() {
+
+double d_id = LimelightHelpers.getFiducialID("limelight");
+
+int id = (int) d_id;
+
+    return id;
+
+}
+
+
+
  public Command driveToCoral(Boolean leftSide) {
     // Create the constraints to use while pathfinding
 
@@ -522,10 +535,10 @@ public Pose2d getTargetPose(int ID , Boolean Leftside) {
 
     // Since AutoBuilder is configured, we can use it to build pathfinding commands
 
-    double d_ID = LimelightHelpers.getFiducialID("limelight");
+    //double d_ID = LimelightHelpers.getFiducialID("limelight");
 
-    int ID = (int) d_ID;
-    
+    int ID = getTagID();
+
     SmartDashboard.putNumber("April ID_2", ID);
 if (ID > 0){
     return AutoBuilder.pathfindToPose(
