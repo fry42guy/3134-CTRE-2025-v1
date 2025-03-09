@@ -34,8 +34,8 @@ public class LimeLightConstants {
  
         public static final InvertedValue kElevatorMotor1Inverted = InvertedValue.CounterClockwise_Positive;
         public static final InvertedValue kElevatorMotor2Inverted = InvertedValue.Clockwise_Positive;
-        public static final double homespeed = -.05;
-        public static final double testspeed = .20;
+        public static final double homespeed = -.1;
+        public static final double testspeed = .40;
 
 public static final double Setpoint1 = 10; // Setpoint 1 for the elevator frostw/h
 public static final double Setpoint2 = 20; // Setpoint 2 for the elevator
@@ -116,8 +116,8 @@ public static final double PeakReverseVoltage = -4 ; // Peak output of -1 V ****
     public class ClimberConstants{
 
         public static final int kClimberMotorPort = 15;
-        public static final double kfwdspeed = 0.25;
-        public static final double krevspeed = -0.25;
+        public static final double kfwdspeed = 0.85;
+        public static final double krevspeed = -0.85;
         public static final InvertedValue kClimberMotorInverted =InvertedValue.Clockwise_Positive;
 
 
