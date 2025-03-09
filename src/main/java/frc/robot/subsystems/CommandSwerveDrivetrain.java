@@ -40,6 +40,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
+import frc.robot.LimelightHelpers.LimelightTarget_Fiducial;
 import frc.robot.generated.TunerConstants.TunerSwerveDrivetrain;
 
 /**
@@ -282,6 +283,9 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     public void periodic() {
 
 
+        SmartDashboard.putNumber("April ID", LimelightHelpers.getFiducialID("limelight"));
+
+
 if (DriverStation.isTeleop()) {
 Boolean doRejectUpdate = false;
     LimelightHelpers.PoseEstimate  mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
@@ -460,8 +464,14 @@ m_feild.setRobotPose(getState().Pose);
 //     return targetPose;
 // }
 
-public Pose2d getTargetPose(int tagID,Boolean Leftside) {
+public Pose2d getTargetPose(Double ID , Boolean Leftside) {
     // Retrieve the AprilTag's pose
+
+
+
+
+int tagID = ID.intValue();
+
     Optional<Pose3d> tagPoseOptional = fieldLayout.getTagPose(tagID);
     if (tagPoseOptional.isEmpty()) {
         // Handle the case where the tag ID is not found
@@ -510,13 +520,30 @@ public Pose2d getTargetPose(int tagID,Boolean Leftside) {
         Units.degreesToRadians(540), Units.degreesToRadians(720));
 
     // Since AutoBuilder is configured, we can use it to build pathfinding commands
+
+    double ID = LimelightHelpers.getFiducialID("limelight");
+
+if (ID > 0){
     return AutoBuilder.pathfindToPose(
        // pose,
-       getTargetPose(18,leftSide),
+       getTargetPose(ID, leftSide),
         constraints,
         edu.wpi.first.units.Units.MetersPerSecond.of(0) // Goal end velocity in meters/sec
     );
+}
+
+else {
+    return dothingCommand();
+
+
+
   }
+ }
+
+  public Command dothingCommand() {
+    return run(() -> {
+        // Do something here
+    });
 
 
 
@@ -524,4 +551,7 @@ public Pose2d getTargetPose(int tagID,Boolean Leftside) {
 
 
 
+
+
+  }
 }
