@@ -284,6 +284,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
 
 
         SmartDashboard.putNumber("April ID", LimelightHelpers.getFiducialID("limelight"));
+       
 
 
 if (DriverStation.isTeleop()) {
@@ -464,15 +465,15 @@ m_feild.setRobotPose(getState().Pose);
 //     return targetPose;
 // }
 
-public Pose2d getTargetPose(Double ID , Boolean Leftside) {
+public Pose2d getTargetPose(int ID , Boolean Leftside) {
     // Retrieve the AprilTag's pose
 
 
+   
 
+//int tagID = ID.intValue();
 
-int tagID = ID.intValue();
-
-    Optional<Pose3d> tagPoseOptional = fieldLayout.getTagPose(tagID);
+    Optional<Pose3d> tagPoseOptional = fieldLayout.getTagPose(ID);
     if (tagPoseOptional.isEmpty()) {
         // Handle the case where the tag ID is not found
         return null;
@@ -521,8 +522,11 @@ int tagID = ID.intValue();
 
     // Since AutoBuilder is configured, we can use it to build pathfinding commands
 
-    double ID = LimelightHelpers.getFiducialID("limelight");
+    double d_ID = LimelightHelpers.getFiducialID("limelight");
 
+    int ID = (int) d_ID;
+    
+    SmartDashboard.putNumber("April ID_2", ID);
 if (ID > 0){
     return AutoBuilder.pathfindToPose(
        // pose,
