@@ -181,6 +181,8 @@ joystick.povDown().whileTrue(new RunCommand(()-> m_climber.Setspeed(Constants.Cl
        joystick.povLeft().whileTrue(new ProxyCommand(() -> new Align_To_Coral2(m_Apriltagtracker, drivetrain, true)));
        joystick.povRight().whileTrue(new ProxyCommand(() -> new Align_To_Coral2(m_Apriltagtracker, drivetrain, false)));
 
+       joystick.rightStick().onTrue(drivetrain.runOnce(() -> drivetrain.toggle_vison_bool()));
+
     //   joystick.povRight().whileTrue(new Align_To_Coral(m_Apriltagtracker,drivetrain,false));
     //   joystick.povLeft().whileTrue(new Align_To_Coral(m_Apriltagtracker,drivetrain,true));
        // joystick2.a().onTrue(new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.Setpoint1,false));

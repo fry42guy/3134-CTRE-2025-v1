@@ -58,6 +58,8 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     private double m_lastSimTime;
     private AprilTagFieldLayout  fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
     public Integer lastTagID = -2;
+    public boolean updateVision = true;
+
     
 
     /* Blue alliance sees forward as 0 degrees (toward red alliance wall) */
@@ -293,6 +295,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
  
     public void periodic() {
 
+SmartDashboard.putBoolean("update vision active?", updateVision );
 
 
       //  System.out.println(getTagID().getAsInt());
@@ -313,7 +316,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
        
 
 
-if (DriverStation.isTeleop()) {
+if (DriverStation.isTeleop() && updateVision ) {
 Boolean doRejectUpdate = false;
     LimelightHelpers.PoseEstimate  mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
    
@@ -421,6 +424,10 @@ m_feild.setRobotPose(getState().Pose);
         super.addVisionMeasurement(visionRobotPoseMeters, Utils.fpgaToCurrentTime(timestampSeconds), visionMeasurementStdDevs);
     }
 
+    public void toggle_vison_bool() {
+        updateVision = !updateVision;
+       
+    }
 
     public Optional<Pose3d> getTagPose(int tagID) {
         return fieldLayout.getTagPose(tagID);
