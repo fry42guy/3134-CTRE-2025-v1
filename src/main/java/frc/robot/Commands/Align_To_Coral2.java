@@ -9,6 +9,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ProxyCommand;
 import frc.robot.Constants;
@@ -44,6 +45,11 @@ private AprilTagFieldLayout  fieldLayout = AprilTagFieldLayout.loadField(AprilTa
     }
 
     private static Pose2d getTargetPose(int ID, boolean Leftside) {
+
+
+        SmartDashboard.putNumber("Tag tracker Last", ID);
+
+
         Optional<Pose3d> tagPoseOptional = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape).getTagPose(ID);
         if (tagPoseOptional.isEmpty()) {
             return new Pose2d();  // Return default pose if tag not found
