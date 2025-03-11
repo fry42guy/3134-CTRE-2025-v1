@@ -17,11 +17,11 @@ public class LimeLightConstants {
 
     public class ElevatorConstants {
         public static final double home = .2;
-        public static final double bottomrung = 10.23;
-        public static final double middlerung = 26.74;
-        public static final double toprung = 56.92;
-        public static final double loweralge =22.4;
-        public static final double upperalge = 32.7;
+        public static final double bottomrung = 0;
+        public static final double middlerung = -8;
+        public static final double toprung = -26.5;
+        public static final double loweralge =0;
+        public static final double upperalge = 0;
         public static final double processalge = 5;//??
 
 
@@ -31,17 +31,17 @@ public class LimeLightConstants {
 
         public static final int kElevatorMotorPort = 9;
         public static final int kElevatorMotorPort2 = 10;
-        public static final double ElevatorMotorMinSoftLimit = 0;
-        public static final double ElevatorMotorMaxSoftLimit = 57; //comfimed 56 is max
+        public static final double ElevatorMotorMinSoftLimit = -27.5;
+        public static final double ElevatorMotorMaxSoftLimit = 0; //comfimed 56 is max
  
         public static final InvertedValue kElevatorMotor1Inverted = InvertedValue.CounterClockwise_Positive;
         public static final InvertedValue kElevatorMotor2Inverted = InvertedValue.Clockwise_Positive;
-        public static final double homespeed = -.1;
-        public static final double testspeed = .40;
+        public static final double homespeed = -.0001;
+        public static final double testspeed = .12;
 
-public static final double Setpoint1 = 10; // Setpoint 1 for the elevator frostw/h
-public static final double Setpoint2 = 20; // Setpoint 2 for the elevator
-public static final double Setpoint3 = 30; // Setpoint 3 for the elevator
+public static final double Setpoint1 = 0; // Setpoint 1 for the elevator frostw/h
+public static final double Setpoint2 = -8; // Setpoint 2 for the elevator
+public static final double Setpoint3 = 0; // Setpoint 3 for the elevator
 //public static final double Setpoint4 = 0; // Setpoint 4 for the elevator /////moved to shouffel board
 
 public static final double Elevatorkp = 2.4; // An error of 1 rotation results in 2.4 V output
@@ -76,8 +76,8 @@ public static final double PeakReverseVoltage = -2.5 ; // Peak output of -1 V **
         public static final int kIntakeMotorPort2 = 12;
         public static final int kCanRageID = 14;
         public static final double CanRangeDetectDistance = .25; // Set the distance you want to detect objects at in Meters
-        public static final double REVspeed = -0.25; // Example value, set to your desired reverse speed
-        public static final double FWDspeed = 0.25;  // Example value, set to your desired forward speed
+        public static final double REVspeed = -0.75; // Example value, set to your desired reverse speed
+        public static final double FWDspeed = 0.75;  // Example value, set to your desired forward speed
         // public static final int kIntakeMinEncoderCount = 0;
         // public static final int kIntakeMaxEncoderCount = 1000;
         // public static final double kIntakeIdealSpeed = 0.5;
@@ -92,12 +92,12 @@ public static final double PeakReverseVoltage = -2.5 ; // Peak output of -1 V **
 
         
 
-        public static final double home = 0*.625;
-        public static final double bottomrung = 4.9*.625;
-        public static final double middlerung = 4.9*.625;
-        public static final double toprung = 5*.625;
-        public static final double loweralge =32.2*.625;
-        public static final double upperalge = 28.5*.625;
+        public static final double home = 0;
+        public static final double bottomrung = .1;
+        public static final double middlerung = -22;
+        public static final double toprung = -24.5;
+        public static final double loweralge =0;
+        public static final double upperalge = 0;
         public static final double processalge = 25;//?
 
 
@@ -105,10 +105,10 @@ public static final double PeakReverseVoltage = -2.5 ; // Peak output of -1 V **
 
 
         public static final int kPivotArmMotorPort = 13;
-        public static final double PivotArmMotorMaxSoftLimit = 33*.625; // Define the max soft limit
-        public static final double PivotArmMotorMinSoftLimit = 0; // Define the min soft limit
+        public static final double PivotArmMotorMaxSoftLimit = 6; // Define the max soft limit
+        public static final double PivotArmMotorMinSoftLimit = -27; // Define the min soft limit
         public static final double homespeed = -.05;
-        public static final double testspeed = .15;
+        public static final double testspeed = .10;
         public static final InvertedValue kPivotArmMotorInverted = InvertedValue.Clockwise_Positive;//InvertedValue.Clockwise_Positive;
         public static final int kPivotArmMinEncoderCount = 0;
         public static final int kPivotArmMaxEncoderCount = 25;
@@ -117,9 +117,9 @@ public static final double PeakReverseVoltage = -2.5 ; // Peak output of -1 V **
         public static final double kPivotArmkI = 0.0;
         public static final double kPivotArmkD = 0.1;
 
-        public static final double Setpoint1 = 5*.625; // Setpoint 1 for the elevator
-        public static final double Setpoint2 = 10*.625; // Setpoint 2 for the elevator
-        public static final double Setpoint3 = 15*.625; // Setpoint 3 for the elevator
+        public static final double Setpoint1 = -8.0; // Setpoint 1 for the elevator
+        public static final double Setpoint2 = 0; // Setpoint 2 for the elevator
+        public static final double Setpoint3 = 0; // Setpoint 3 for the elevator
 
 
         public static final double PeakForwardVoltage = 4; // Peak output of 4 V   ***********************************Default was 8...4?
