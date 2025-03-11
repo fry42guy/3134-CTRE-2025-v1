@@ -40,6 +40,7 @@ public class RobotContainer {
 
 private final ElevatorSubsytem m_elevator = new ElevatorSubsytem();
 private final IntakeSubsystem m_intake = new IntakeSubsystem();
+private final IntakeSubsystem2 m_intake2 = new IntakeSubsystem2();
 private final PivotArmSubsystem m_pivotArm = new PivotArmSubsystem();
 private final ClimberSubsystem m_climber = new ClimberSubsystem();
 //private final LimelightHelpers m_LimelightHelpers = new LimelightHelpers();
@@ -91,6 +92,7 @@ NamedCommands.registerCommand("ShootCoral", new RunintakeWithStop(m_intake, fals
         SmartDashboard.putData("Auto Mode", autoChooser);
         
 m_intake.setDefaultCommand(new RunCommand(() -> m_intake.Setspeed(0.0), m_intake));
+m_intake2.setDefaultCommand(new RunCommand(() -> m_intake2.Setspeed(0.0), m_intake2));
 m_pivotArm.setDefaultCommand(new PivotPIDSetpoint(m_pivotArm,0.0,true));
 m_elevator.setDefaultCommand(new ElevatorPIDSetpoint(m_elevator, 0.0, true));
 
@@ -142,6 +144,15 @@ m_elevator.setDefaultCommand(new ElevatorPIDSetpoint(m_elevator, 0.0, true));
          ///*Elev rev */joystick.rightBumper().whileTrue(new RunCommand(() -> m_intake.Setspeed(Constants.IntakeConstants.REVspeed), m_intake));
          joystick.rightBumper().whileTrue(new RunintakeWithStop(m_intake, false));
         /*Elev fwd */joystick.leftBumper().whileTrue(new RunCommand(() -> m_intake.Setspeed(Constants.IntakeConstants.FWDspeed), m_intake));
+
+
+        joystick.povRight().whileTrue(new RunCommand(() -> m_intake2.Setspeed(Constants.IntakeConstants2.REVspeed), m_intake2));
+        /*Elev fwd */joystick.povLeft().whileTrue(new RunCommand(() -> m_intake2.Setspeed(Constants.IntakeConstants2.FWDspeed), m_intake2));
+
+
+
+
+
 joystick.leftTrigger().onTrue(new ParallelCommandGroup(new ElevatorPIDSetpoint(m_elevator , Constants.ElevatorConstants.bottomrung,false),new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.bottomrung,false)));
 joystick.rightTrigger().onTrue(new ParallelCommandGroup(new ElevatorPIDSetpoint(m_elevator , Constants.ElevatorConstants.middlerung,false),new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.middlerung,false)));
 joystick.x().onTrue(new ParallelCommandGroup(new ElevatorPIDSetpoint(m_elevator , Constants.ElevatorConstants.toprung,false),new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.toprung,false)));
