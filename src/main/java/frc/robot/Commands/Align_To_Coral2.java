@@ -11,6 +11,8 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.NotifierCommand;
 import edu.wpi.first.wpilibj2.command.ProxyCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.Apriltagtracker;
@@ -32,13 +34,29 @@ private AprilTagFieldLayout  fieldLayout = AprilTagFieldLayout.loadField(AprilTa
             int tagID = m_tagtracker.getTagID().getAsInt();
             System.out.println("tagID: " + tagID);
 
+
+if (tagID > 0) {
+
             PathConstraints constraints = new PathConstraints(
                 3, 2,
                 Units.degreesToRadians(540), Units.degreesToRadians(720));
 
             return m_swerve.Autodrive(getTargetPose(tagID, Leftside), constraints, 
                 edu.wpi.first.units.Units.MetersPerSecond.of(0));
-        });
+        }
+        else {
+
+
+return Commands.none();
+
+        } 
+
+
+        
+    }
+        
+        
+        );
         this.m_tagtracker = m_tagtracker;
         this.m_swerve = m_swerve;
         this.Leftside = Leftside;

@@ -318,7 +318,10 @@ SmartDashboard.putBoolean("update vision active?", updateVision );
 
 if (DriverStation.isTeleop() && updateVision ) {
 Boolean doRejectUpdate = false;
-    LimelightHelpers.PoseEstimate  mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+    //LimelightHelpers.PoseEstimate  mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+    LimelightHelpers.PoseEstimate  mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
+
+    
    
    if (mt1 != null){
     if(mt1.tagCount == 1 && mt1.rawFiducials.length == 1)
@@ -339,12 +342,50 @@ Boolean doRejectUpdate = false;
 
     if(!doRejectUpdate)
       {
-        addVisionMeasurement( mt1.pose ,mt1.timestampSeconds);
+
+        Pose2d adjus  = mt1.pose.plus(new Transform2d(0, 0, new Rotation2d(Math.toRadians(180))));
+
+        addVisionMeasurement( adjus ,mt1.timestampSeconds);
       }
     }
     
 }
 
+if (DriverStation.isTeleop() && updateVision ) {
+    Boolean doRejectUpdate = false;
+       // LimelightHelpers.PoseEstimate  mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-left");
+        LimelightHelpers.PoseEstimate  mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left");
+    
+        
+       
+       if (mt1 != null){
+        if(mt1.tagCount == 1 && mt1.rawFiducials.length == 1)
+        {
+          if(mt1.rawFiducials[0].ambiguity > .7)
+          {
+            doRejectUpdate = true;
+          }
+          if(mt1.rawFiducials[0].distToCamera > 3)
+          {
+            doRejectUpdate = true;
+          }
+        }
+        if(mt1.tagCount == 0)
+        {
+          doRejectUpdate = true;
+        }
+    
+        if(!doRejectUpdate)
+          {
+    
+            Pose2d adjus  = mt1.pose.plus(new Transform2d(0, 0, new Rotation2d(Math.toRadians(180))));
+    
+            addVisionMeasurement( adjus ,mt1.timestampSeconds);
+          }
+        }
+        
+    }
+    
 
 
 m_feild.setRobotPose(getState().Pose);

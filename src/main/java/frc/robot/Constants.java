@@ -18,10 +18,10 @@ public class LimeLightConstants {
     public class ElevatorConstants {
         public static final double home = .2;
         public static final double bottomrung = 10.23;
-        public static final double middlerung = 26.74;
+        public static final double middlerung = 27.74;
         public static final double toprung = 56.92;
         public static final double loweralge =22.4;
-        public static final double upperalge = 32.7;
+        public static final double upperalge = 37.7;
         public static final double processalge = 5;//??
 
 
@@ -78,8 +78,8 @@ public static final double PeakReverseVoltage = -2.5 ; // Peak output of -1 V **
 
         public static final double home = 0*.625;
         public static final double bottomrung = 4.9*.625;
-        public static final double middlerung = 4.9*.625;
-        public static final double toprung = 5*.625;
+        public static final double middlerung = 4.7*.625;
+        public static final double toprung = 7.9*.625;
         public static final double loweralge =32.2*.625;
         public static final double upperalge = 28.5*.625;
         public static final double processalge = 25;//?
