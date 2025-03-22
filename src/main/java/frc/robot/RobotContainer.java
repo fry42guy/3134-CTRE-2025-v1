@@ -28,13 +28,14 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
-import frc.robot.Commands.Align_To_Coral;
-import frc.robot.Commands.Align_To_Coral2;
+//import frc.robot.Commands.Align_To_Coral;
+//import frc.robot.Commands.Align_To_Coral2;
 import frc.robot.Commands.ElevatorPIDSetpoint;
 import frc.robot.Commands.PivotPIDSetpoint;
 import frc.robot.subsystems.*;
 import frc.robot.Commands.RunintakeWithStop;
-import frc.robot.Commands.Align_To_Coral;
+import frc.robot.Commands.TargetPose_Coral;
+//import frc.robot.Commands.Align_To_Coral;
 
 public class RobotContainer {
 
@@ -58,12 +59,13 @@ private final Apriltagtracker m_Apriltagtracker = new Apriltagtracker();
 
 
 
+
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
-            .withDeadband(MaxSpeed * 0.2).withRotationalDeadband(MaxAngularRate * 0.2) // Add a 10% deadband
+            .withDeadband(0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
@@ -83,6 +85,7 @@ private final Apriltagtracker m_Apriltagtracker = new Apriltagtracker();
     public RobotContainer() {
 
 NamedCommands.registerCommand("ShootCoral", new RunintakeWithStop(m_intake, false).withTimeout(2));
+NamedCommands.registerCommand("Intake Coral", new RunintakeWithStop(m_intake, false));
 
 
 
@@ -109,8 +112,8 @@ m_elevator.setDefaultCommand(new ElevatorPIDSetpoint(m_elevator, 0.0, true));
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() ->
-                drive.withVelocityX(-(Math.pow(joystick.getLeftY(),3)) * MaxSpeed) // Drive forward with negative Y (forward)
-                    .withVelocityY(-(Math.pow(joystick.getLeftX(),3)) * MaxSpeed) // Drive left with negative X (left)
+                drive.withVelocityX(-(Math.pow(joystick.getLeftY(),3))* MaxSpeed ) // Drive forward with negative Y (forward)
+                    .withVelocityY(-(Math.pow(joystick.getLeftX(),3))* MaxSpeed ) // Drive left with negative X (left)
                     .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
@@ -178,8 +181,14 @@ joystick.povDown().whileTrue(new RunCommand(()-> m_climber.Setspeed(Constants.Cl
         //joystick.povLeft().whileTrue(drivetrain.driveToCoral(drivetrain.getTagID(),true));
        // joystick.povRight().whileTrue(rivetrain.driveToCoral(drivetrain.getTagID(), false));
        //joystick.povRight().whileTrue(new ProxyCommand(new Align_To_Coral2(m_Apriltagtracker,drivetrain,false)));
-       joystick.povLeft().whileTrue(new ProxyCommand(() -> new Align_To_Coral2(m_Apriltagtracker, drivetrain, true)));
-       joystick.povRight().whileTrue(new ProxyCommand(() -> new Align_To_Coral2(m_Apriltagtracker, drivetrain, false)));
+       
+       
+      // old //joystick.povLeft().whileTrue(new ProxyCommand(() -> new Align_To_Coral2(m_Apriltagtracker, drivetrain, true)));
+      //old // joystick.povRight().whileTrue(new ProxyCommand(() -> new Align_To_Coral2(m_Apriltagtracker, drivetrain, false)));
+
+joystick.povLeft().whileTrue(new TargetPose_Coral(false, drivetrain));
+joystick.povRight().whileTrue(new TargetPose_Coral(true, drivetrain));
+
 
        joystick.rightStick().onTrue(drivetrain.runOnce(() -> drivetrain.toggle_vison_bool()));
 

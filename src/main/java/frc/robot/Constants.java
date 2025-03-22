@@ -5,6 +5,53 @@ import com.ctre.phoenix6.signals.InvertedValue;
 public class Constants {
 
 
+
+
+    public class coralv2{
+
+        public static final double Drivekp = 1.2;
+        public static final double Driveki = .01;
+        public static final double Drivekd = 0.001;
+        public static final double drivedeadband = .3;
+
+        public static final double yDrivekp = 1.2;
+        public static final double yDriveki = .010;
+        public static final double yDrivekd = 0.001;
+        
+
+
+
+        public static final double Rotatekp = 4; //5
+        public static final double Rotateki = .1; //0
+        public static final double Rotatekd = .001; //.001
+        public static final double rotatedeadband = .1; //.1
+
+        public static final double DriveMaxSpeed = 1;
+        public static final double RotateMaxSpeed = 3; //3
+
+        public static final double leftxtarget = -.5; // tz in limelight (meters)
+        public static final double leftytarget = 0.0; //tx in limelight (meters)
+        public static final double leftztarget = 0.0; //RY in limelight (degrees)
+
+        public static final double rightxtarget = -0.5; // tx in limelight (meters)
+        public static final double rightytarget = 0.0;    //TZ in limelight (meters)
+        public static final double rightztarget = 0; //RY in limelight (degrees)
+
+        public static final double Xtolerance = 0.01;
+        public static final double Ytolerance = 0.01;
+        public static final double Ztolerance = 0.0001;
+
+
+
+        
+        
+
+
+
+
+    }
+
+
 public class LimeLightConstants {
 
     public static final double Side_to_side_offset_in = 6.46875;
