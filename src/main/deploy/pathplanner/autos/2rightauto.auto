@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "test Coral Center"
+            "pathName": "Coral Right"
           }
         },
         {
@@ -19,13 +19,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "side"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "back test Coral Center"
+            "pathName": "endtofeedright"
           }
         },
         {
@@ -37,19 +31,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "test Coral Center"
+            "pathName": "feedscoreright"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "ShootCoral"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "side"
           }
         }
       ]

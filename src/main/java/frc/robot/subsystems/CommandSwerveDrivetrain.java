@@ -58,7 +58,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     private double m_lastSimTime;
     private AprilTagFieldLayout  fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
     public Integer lastTagID = -2;
-    public boolean updateVision = true;
+    public boolean updateVision = Constants.usecameratoupdatepose;
 
     
 
@@ -316,7 +316,7 @@ SmartDashboard.putBoolean("update vision active?", updateVision );
        
 
 
-if (DriverStation.isTeleop() && updateVision ) {
+if (DriverStation.isTeleop() && updateVision && Constants.usecameratoupdatepose ) {
 Boolean doRejectUpdate = false;
     //LimelightHelpers.PoseEstimate  mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
     LimelightHelpers.PoseEstimate  mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
@@ -351,7 +351,7 @@ Boolean doRejectUpdate = false;
     
 }
 
-if (DriverStation.isTeleop() && updateVision ) {
+if (DriverStation.isTeleop() && updateVision && Constants.usecameratoupdatepose ) {
     Boolean doRejectUpdate = false;
        // LimelightHelpers.PoseEstimate  mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-left");
         LimelightHelpers.PoseEstimate  mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left");

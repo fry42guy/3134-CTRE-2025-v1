@@ -13,15 +13,17 @@ public class RunintakeWithStop extends Command {
 
 private boolean originalstateofcanrange;
 private boolean DriveFwd;
+private boolean withsensor;
 //private double timeout;
 private final IntakeSubsystem m_intake;
 
 
   /** Creates a new RunintakeWithStop. */
-  public RunintakeWithStop(IntakeSubsystem m_intake, boolean DriveFwd) {
+  public RunintakeWithStop(IntakeSubsystem m_intake, boolean DriveFwd, boolean withsensor) {
 
     this.m_intake = m_intake;
     this.DriveFwd = DriveFwd;
+    this.withsensor = withsensor;
     addRequirements(m_intake);
 
 
@@ -59,7 +61,7 @@ else {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (!originalstateofcanrange && originalstateofcanrange != m_intake.ObjectDetected()) {
+    if (!originalstateofcanrange && originalstateofcanrange != m_intake.ObjectDetected() && withsensor) {
       return true;
     }
     else {

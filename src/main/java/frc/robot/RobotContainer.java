@@ -84,8 +84,8 @@ private final Apriltagtracker m_Apriltagtracker = new Apriltagtracker();
 
     public RobotContainer() {
 
-NamedCommands.registerCommand("ShootCoral", new RunintakeWithStop(m_intake, false).withTimeout(2));
-NamedCommands.registerCommand("Intake Coral", new RunintakeWithStop(m_intake, false));
+NamedCommands.registerCommand("ShootCoral", new RunintakeWithStop(m_intake, false,false).withTimeout(2));
+NamedCommands.registerCommand("Intake Coral", new RunintakeWithStop(m_intake, false,true));
 
 
 
@@ -143,7 +143,7 @@ m_elevator.setDefaultCommand(new ElevatorPIDSetpoint(m_elevator, 0.0, true));
         drivetrain.registerTelemetry(logger::telemeterize);
 
          ///*Elev rev */joystick.rightBumper().whileTrue(new RunCommand(() -> m_intake.Setspeed(Constants.IntakeConstants.REVspeed), m_intake));
-         joystick.rightBumper().whileTrue(new RunintakeWithStop(m_intake, false));
+         joystick.rightBumper().whileTrue(new RunintakeWithStop(m_intake, false,true));
         /*Elev fwd */joystick.leftBumper().whileTrue(new RunCommand(() -> m_intake.Setspeed(Constants.IntakeConstants.FWDspeed), m_intake));
 joystick.leftTrigger().onTrue(new ParallelCommandGroup(new ElevatorPIDSetpoint(m_elevator , Constants.ElevatorConstants.bottomrung,false),new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.bottomrung,false)));
 joystick.rightTrigger().onTrue(new ParallelCommandGroup(new ElevatorPIDSetpoint(m_elevator , Constants.ElevatorConstants.middlerung,false),new PivotPIDSetpoint(m_pivotArm, Constants.PivotArmConstants.middlerung,false)));

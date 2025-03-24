@@ -4,7 +4,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 
 public class Constants {
 
-
+public static final boolean usecameratoupdatepose = false;
 
 
     public class coralv2{
@@ -83,8 +83,8 @@ public class LimeLightConstants {
  
         public static final InvertedValue kElevatorMotor1Inverted = InvertedValue.CounterClockwise_Positive;
         public static final InvertedValue kElevatorMotor2Inverted = InvertedValue.Clockwise_Positive;
-        public static final double homespeed = -.1;
-        public static final double testspeed = .40;
+        public static final double homespeed = -.2;
+        public static final double testspeed = .50;
 
 public static final double Setpoint1 = 10; // Setpoint 1 for the elevator frostw/h
 public static final double Setpoint2 = 20; // Setpoint 2 for the elevator
@@ -107,8 +107,8 @@ public static final double PeakReverseVoltage = -2.5 ; // Peak output of -1 V **
         public static final int kIntakeMotorPort2 = 12;
         public static final int kCanRageID = 14;
         public static final double CanRangeDetectDistance = .25; // Set the distance you want to detect objects at in Meters
-        public static final double REVspeed = -0.25; // Example value, set to your desired reverse speed
-        public static final double FWDspeed = 0.25;  // Example value, set to your desired forward speed
+        public static final double REVspeed = -0.5; // Example value, set to your desired reverse speed
+        public static final double FWDspeed = .5;  // Example value, set to your desired forward speed
         // public static final int kIntakeMinEncoderCount = 0;
         // public static final int kIntakeMaxEncoderCount = 1000;
         // public static final double kIntakeIdealSpeed = 0.5;
@@ -126,7 +126,7 @@ public static final double PeakReverseVoltage = -2.5 ; // Peak output of -1 V **
         public static final double home = 0*.625;
         public static final double bottomrung = 4.9*.625;
         public static final double middlerung = 4.7*.625;
-        public static final double toprung = 7.9*.625;
+        public static final double toprung = 8.9*.625;
         public static final double loweralge =32.2*.625;
         public static final double upperalge = 28.5*.625;
         public static final double processalge = 25;//?
