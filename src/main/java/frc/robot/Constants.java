@@ -4,7 +4,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 
 public class Constants {
 
-public static final boolean usecameratoupdatepose = false;
+public static final boolean usecameratoupdatepose = true;
 
 
     public class coralv2{

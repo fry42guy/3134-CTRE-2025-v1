@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
+import frc.robot.Commands.Align_To_Coral2;
 //import frc.robot.Commands.Align_To_Coral;
 //import frc.robot.Commands.Align_To_Coral2;
 import frc.robot.Commands.ElevatorPIDSetpoint;
@@ -183,11 +184,11 @@ joystick.povDown().whileTrue(new RunCommand(()-> m_climber.Setspeed(Constants.Cl
        //joystick.povRight().whileTrue(new ProxyCommand(new Align_To_Coral2(m_Apriltagtracker,drivetrain,false)));
        
        
-      // old //joystick.povLeft().whileTrue(new ProxyCommand(() -> new Align_To_Coral2(m_Apriltagtracker, drivetrain, true)));
-      //old // joystick.povRight().whileTrue(new ProxyCommand(() -> new Align_To_Coral2(m_Apriltagtracker, drivetrain, false)));
+      joystick.povLeft().whileTrue(new ProxyCommand(() -> new Align_To_Coral2(m_Apriltagtracker, drivetrain, true)));
+       joystick.povRight().whileTrue(new ProxyCommand(() -> new Align_To_Coral2(m_Apriltagtracker, drivetrain, false)));
 
-joystick.povLeft().whileTrue(new TargetPose_Coral(false, drivetrain));
-joystick.povRight().whileTrue(new TargetPose_Coral(true, drivetrain));
+//joystick.povLeft().whileTrue(new TargetPose_Coral(false, drivetrain));
+//joystick.povRight().whileTrue(new TargetPose_Coral(true, drivetrain));
 
 
        joystick.rightStick().onTrue(drivetrain.runOnce(() -> drivetrain.toggle_vison_bool()));
